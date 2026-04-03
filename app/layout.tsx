@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", figtree.variable, manropeHeading.variable)}
+      className={cn("scroll-smooth", "h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", figtree.variable, manropeHeading.variable)}
     >
       <body className="min-h-full flex flex-col bg-[#FCF9F8]">
         <Header />
