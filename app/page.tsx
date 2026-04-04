@@ -223,7 +223,7 @@ export default function Home() {
       </section>
 
       {/* About */}
-      <section id="about" className="flex flex-col lg:flex-row items-start gap-8 lg:gap-14 p-6 lg:p-10 py-12 lg:py-20">
+      <section id="about" className="flex flex-col lg:flex-row items-center gap-8 lg:gap-14 p-6 lg:p-10 py-12 lg:py-20">
         <div className="flex flex-col gap-2 bg-white p-8 sm:p-12 lg:p-20 rounded-lg w-full lg:w-auto">
           <span className="font-sans font-light text-xs text-[#B91C1C] tracking-widest">
             THE DEVELOPER
