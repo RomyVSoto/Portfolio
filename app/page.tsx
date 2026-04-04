@@ -72,8 +72,7 @@ const Experience = [
 
 const Technologies = {
   frontend: ["React", "Next.js", "TypeScript", "Tailwind CSS", "React Query"],
-  backend: ["Node.js", "Express", "Python"],
-  databases: ["PostgreSQL", "MySQL", "MongoDB"],
+  backend: ["Node.js", "Express", "Python", "PostgreSQL", "MySQL", "Supabase"],
   tools: ["Git", "Docker", "VS Code", "Postman"],
 };
 
@@ -81,7 +80,10 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-20 sm:gap-28 md:gap-40 pt-20">
       {/* Hero */}
-      <section id="hero" className="flex items-center px-6 sm:px-10 py-12 sm:py-20">
+      <section
+        id="hero"
+        className="flex items-center px-6 sm:px-10 py-12 sm:py-20"
+      >
         <div className="flex flex-col gap-5">
           <div className="flex flex-col">
             <span className="font-sans font-light text-xs text-[#B91C1C] tracking-widest">
@@ -181,7 +183,10 @@ export default function Home() {
       </section>
 
       {/* Experience */}
-      <section id="experience" className="flex flex-col md:flex-row gap-8 md:gap-14 p-6 md:p-10 py-12 md:py-20 bg-[#F6F3F2]">
+      <section
+        id="experience"
+        className="flex flex-col md:flex-row gap-8 md:gap-14 p-6 md:p-10 py-12 md:py-20 bg-[#F6F3F2]"
+      >
         <div className="flex flex-col gap-2 md:min-w-65">
           <span className="font-sans font-light text-xs text-[#B91C1C] tracking-widest">
             PROFESSIONAL GROWTH
@@ -223,7 +228,10 @@ export default function Home() {
       </section>
 
       {/* About */}
-      <section id="about" className="flex flex-col lg:flex-row items-center gap-8 lg:gap-14 p-6 lg:p-10 py-12 lg:py-20">
+      <section
+        id="about"
+        className="flex flex-col lg:flex-row items-center gap-8 lg:gap-14 p-6 lg:p-10 py-12 lg:py-20"
+      >
         <div className="flex flex-col gap-2 bg-white p-8 sm:p-12 lg:p-20 rounded-lg w-full lg:w-auto">
           <span className="font-sans font-light text-xs text-[#B91C1C] tracking-widest">
             THE DEVELOPER
@@ -293,13 +301,15 @@ export default function Home() {
             Let&apos;s build something enduring.
           </span>
           <span className="font-sans font-light text-base sm:text-lg text-[#9E9C9C] max-w-xl">
-            Open to collaborative projects, technical discussions, or professional
-            opportunities in full-stack development.
+            Open to collaborative projects, technical discussions, or
+            professional opportunities in full-stack development.
           </span>
         </div>
         <div className="shrink-0">
           <Link href="mailto:romyavaldez@gmail.com">
-            <Button className="font-heading font-bold text-base sm:text-lg px-10 py-6 sm:px-16 sm:py-7 md:px-20 md:py-8 cursor-pointer hover:scale-105 transition-all">Get in Touch</Button>
+            <Button className="font-heading font-bold text-base sm:text-lg px-10 py-6 sm:px-16 sm:py-7 md:px-20 md:py-8 cursor-pointer hover:scale-105 transition-all">
+              Get in Touch
+            </Button>
           </Link>
         </div>
       </section>
