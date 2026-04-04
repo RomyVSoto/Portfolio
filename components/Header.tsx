@@ -41,9 +41,11 @@ export default function Header() {
         </Link>
       </div>
       <div>
-        <Button className="font-heading py-5 px-5 text-md tracking-tight cursor-pointer hover:bg-[#991B1B] transition-all hover:scale-105">
-          Resume
-        </Button>
+        <Link href="https://path.cv/romyavaldez" target="_blank">
+          <Button className="font-heading py-5 px-5 text-md tracking-tight cursor-pointer hover:bg-[#991B1B] transition-all hover:scale-105">
+            Resume
+          </Button>
+        </Link>
       </div>
     </header>
   );

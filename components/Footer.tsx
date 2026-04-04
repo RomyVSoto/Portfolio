@@ -18,9 +18,9 @@ export default function Footer() {
         </span>
       </div>
       <div className="flex gap-10">
-        <span className="font-sans font-thin text-sm text-[#71717A] underline underline-offset-6 decoration-transparent hover:underline-offset-1 hover:decoration-red-500 transition-all cursor-pointer"><Link href="https://www.linkedin.com/in/romyvaldez/">LINKEDIN</Link></span>
-        <span className="font-sans font-thin text-sm text-[#71717A] underline underline-offset-6 decoration-transparent hover:underline-offset-1 hover:decoration-red-500 transition-all cursor-pointer"><Link href="https://github.com/RomyVSoto">GITHUB</Link></span>
-        <span className="font-sans font-thin text-sm text-[#71717A] underline underline-offset-6 decoration-transparent hover:underline-offset-1 hover:decoration-red-500 transition-all cursor-pointer"><Link href="https://path.cv/romyavaldez">READ.CV</Link></span>
+        <span className="font-sans font-thin text-sm text-[#71717A] underline underline-offset-6 decoration-transparent hover:underline-offset-1 hover:decoration-red-500 transition-all cursor-pointer"><Link href="https://www.linkedin.com/in/romyvaldez/" target="_blank">LINKEDIN</Link></span>
+        <span className="font-sans font-thin text-sm text-[#71717A] underline underline-offset-6 decoration-transparent hover:underline-offset-1 hover:decoration-red-500 transition-all cursor-pointer"><Link href="https://github.com/RomyVSoto" target="_blank">GITHUB</Link></span>
+        <span className="font-sans font-thin text-sm text-[#71717A] underline underline-offset-6 decoration-transparent hover:underline-offset-1 hover:decoration-red-500 transition-all cursor-pointer"><Link href="https://path.cv/romyavaldez" target="_blank">READ.CV</Link></span>
       </div>
     </footer>
   );

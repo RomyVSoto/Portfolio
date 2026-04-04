@@ -79,7 +79,7 @@ const Technologies = {
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-40 py-20">
+    <div className="flex flex-col gap-40 pt-20">
       {/* Hero */}
       <section id="hero" className="flex items-center px-10 py-20">
         <div className="flex flex-col gap-5">
@@ -239,36 +239,68 @@ export default function Home() {
         </div>
         <div className="flex flex-col gap-4 p-20">
           <div className="flex flex-col gap-2 bg-[#F0EDED] px-4 py-6 rounded-lg">
-            <span className="font-heading font-bold text-sm text-[#323232] tracking-wider">FRONTEND</span>
+            <span className="font-heading font-bold text-sm text-[#323232] tracking-wider">
+              FRONTEND
+            </span>
             <span className="flex flex-wrap gap-2">
               {Technologies.frontend.map((tech) => (
-                <span key={tech} className="font-sans font-light text-xs text-[#5F5F5F] px-2 py-1 bg-white rounded-md">
+                <span
+                  key={tech}
+                  className="font-sans font-light text-xs text-[#5F5F5F] px-2 py-1 bg-white rounded-md"
+                >
                   {tech}
                 </span>
               ))}
             </span>
-
           </div>
           <div className="flex flex-col gap-2 bg-[#FFE0E0] px-4 py-6 rounded-lg">
-            <span className="font-heading font-bold text-sm text-[#991B1B] tracking-wider">BACKEND & DATABASES</span>
+            <span className="font-heading font-bold text-sm text-[#991B1B] tracking-wider">
+              BACKEND & DATABASES
+            </span>
             <span className="flex flex-wrap gap-2">
               {Technologies.backend.map((tech) => (
-                <span key={tech} className="font-sans font-light text-xs text-[#5F5F5F] px-2 py-1 bg-white rounded-md">
+                <span
+                  key={tech}
+                  className="font-sans font-light text-xs text-[#5F5F5F] px-2 py-1 bg-white rounded-md"
+                >
                   {tech}
                 </span>
               ))}
             </span>
           </div>
           <div className="flex flex-col gap-2 bg-[#F0EDED] px-4 py-6 rounded-lg">
-            <span className="font-heading font-bold text-sm text-[#991B1B] tracking-wider">TOOLS</span>
+            <span className="font-heading font-bold text-sm text-[#991B1B] tracking-wider">
+              TOOLS
+            </span>
             <span className="flex flex-wrap gap-2">
               {Technologies.tools.map((tech) => (
-                <span key={tech} className="font-sans font-light text-xs text-[#5F5F5F] px-2 py-1 bg-white rounded-md">
+                <span
+                  key={tech}
+                  className="font-sans font-light text-xs text-[#5F5F5F] px-2 py-1 bg-white rounded-md"
+                >
                   {tech}
                 </span>
               ))}
             </span>
           </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section className="flex justify-between items-center py-30 px-40 bg-[#0E0E0E]">
+        <div className="flex flex-col gap-4">
+          <span className="font-heading font-bold text-4xl text-[#F9F6FF] tracking-tight">
+          Let&apos;s build something enduring.
+        </span>
+        <span className="font-sans font-light text-lg text-[#9E9C9C] max-w-xl">
+          Open to collaborative projects, technical discussions, or professional
+          opportunities in full-stack development.
+        </span>
+        </div>
+        <div>
+          <Link href="mailto:romyavaldez@gmail.com">
+            <Button className="font-heading font-bold text-lg px-20 py-8 cursor-pointer hover:scale-105 transition-all">Get in Touch</Button>
+          </Link>
         </div>
       </section>
     </div>
