@@ -123,7 +123,7 @@ export default function Home() {
               Recent Projects
             </span>
           </div>
-          <div className="px-6 sm:px-10 md:px-16">
+          <div className="px-10 sm:px-12 md:px-16">
             <Carousel>
               <CarouselContent>
                 {Projects.map((project) => (
@@ -137,17 +137,17 @@ export default function Home() {
                         alt={project.name}
                         width={700}
                         height={500}
-                        className="rounded-lg w-full md:w-auto max-w-full"
+                        className="rounded-lg w-full md:w-125 lg:w-175 h-auto max-h-52 sm:max-h-64 md:max-h-none object-cover md:object-fill"
                       />
                     </div>
-                    <div className="flex flex-col gap-6">
-                      <span className="font-heading font-bold text-2xl">
+                    <div className="flex flex-col gap-4 md:gap-6">
+                      <span className="font-heading font-bold text-xl sm:text-2xl">
                         {project.name}
                       </span>
-                      <p className="font-sans font-light text-md text-[#5F5F5F] max-w-3xl">
+                      <p className="font-sans font-light text-sm sm:text-md text-[#5F5F5F]">
                         {project.description}
                       </p>
-                      <span className="font-sans font-thin flex gap-2">
+                      <span className="font-sans font-thin flex flex-wrap gap-2">
                         {project.technologies.map((tech) => (
                           <p
                             key={tech}
