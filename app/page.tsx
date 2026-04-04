@@ -70,6 +70,13 @@ const Experience = [
   },
 ];
 
+const Technologies = {
+  frontend: ["React", "Next.js", "TypeScript", "Tailwind CSS", "React Query"],
+  backend: ["Node.js", "Express", "Python"],
+  databases: ["PostgreSQL", "MySQL", "MongoDB"],
+  tools: ["Git", "Docker", "VS Code", "Postman"],
+};
+
 export default function Home() {
   return (
     <div className="flex flex-col gap-40 py-20">
@@ -191,7 +198,9 @@ export default function Home() {
           {Experience.map((experience) => (
             <div key={experience.title} className="flex gap-4">
               <span className="flex flex-col items-center">
-                <Dot className={`scale-300 z-10 ${experience.active ? 'text-[#B91C1C]' : 'text-[#B3B2B1]'}`}/>
+                <Dot
+                  className={`scale-300 z-10 ${experience.active ? "text-[#B91C1C]" : "text-[#B3B2B1]"}`}
+                />
                 <p className="h-full w-0 border-[0.5px] border-[#D4D2D0]"></p>
               </span>
               <span className="flex flex-col gap-1">
@@ -214,7 +223,54 @@ export default function Home() {
       </section>
 
       {/* About */}
-      <section className="flex flex-col gap-10 px-10"></section>
+      <section id="about" className="flex items-center gap-14 p-10 py-20">
+        <div className="flex flex-col gap-2 bg-white p-20 rounded-lg">
+          <span className="font-sans font-light text-xs text-[#B91C1C] tracking-widest">
+            THE DEVELOPER
+          </span>
+          <span className="font-heading font-bold text-3xl tracking-tight">
+            Bridging Networking & Software Engineering
+          </span>
+          <span className="font-sans font-light text-md text-[#5F5F5F] max-w-lg">
+            I am a Junior Full-Stack Developer with a background in network
+            operations at Claro Dominicana, one of the largest telecom companies
+            in the Dominican Republic.
+          </span>
+        </div>
+        <div className="flex flex-col gap-4 p-20">
+          <div className="flex flex-col gap-2 bg-[#F0EDED] px-4 py-6 rounded-lg">
+            <span className="font-heading font-bold text-sm text-[#323232] tracking-wider">FRONTEND</span>
+            <span className="flex flex-wrap gap-2">
+              {Technologies.frontend.map((tech) => (
+                <span key={tech} className="font-sans font-light text-xs text-[#5F5F5F] px-2 py-1 bg-white rounded-md">
+                  {tech}
+                </span>
+              ))}
+            </span>
+
+          </div>
+          <div className="flex flex-col gap-2 bg-[#FFE0E0] px-4 py-6 rounded-lg">
+            <span className="font-heading font-bold text-sm text-[#991B1B] tracking-wider">BACKEND & DATABASES</span>
+            <span className="flex flex-wrap gap-2">
+              {Technologies.backend.map((tech) => (
+                <span key={tech} className="font-sans font-light text-xs text-[#5F5F5F] px-2 py-1 bg-white rounded-md">
+                  {tech}
+                </span>
+              ))}
+            </span>
+          </div>
+          <div className="flex flex-col gap-2 bg-[#F0EDED] px-4 py-6 rounded-lg">
+            <span className="font-heading font-bold text-sm text-[#991B1B] tracking-wider">TOOLS</span>
+            <span className="flex flex-wrap gap-2">
+              {Technologies.tools.map((tech) => (
+                <span key={tech} className="font-sans font-light text-xs text-[#5F5F5F] px-2 py-1 bg-white rounded-md">
+                  {tech}
+                </span>
+              ))}
+            </span>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
