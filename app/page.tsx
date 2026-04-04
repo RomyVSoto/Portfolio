@@ -33,7 +33,7 @@ const Projects = [
     technologies: [
       "Next.js",
       "JavaScript",
-      "Tawilind CSS",
+      "TawilindCSS",
       "Node.js",
       "Nodemailer",
     ],
@@ -72,7 +72,16 @@ const Experience = [
 
 const Technologies = {
   frontend: ["React", "Next.js", "TypeScript", "Tailwind CSS", "React Query"],
-  backend: ["Node.js", "Express", "Python", "PostgreSQL", "MySQL", "Supabase"],
+  backend: [
+    "Node.js",
+    "Express",
+    "Python",
+    "C#",
+    "PostgreSQL",
+    "SQL Server",
+    "Supabase",
+    "JWT",
+  ],
   tools: ["Git", "Docker", "VS Code", "Postman"],
 };
 
