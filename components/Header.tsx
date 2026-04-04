@@ -1,18 +1,21 @@
-import React from "react";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
+'use client'
+
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 export default function Header() {
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setVisible(window.scrollY < 100); // desaparece luego de 100px
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   return (
-    <header className="flex justify-between items-center bg-white px-5 py-4">
+    <header className={`sticky top-0 flex justify-between items-center bg-white px-5 py-4 transition-opacity duration-500 ${visible ? "opacity-100" : "opacity-0"}`}>
       <Link href="#hero">
         <div className="font-heading font-bold text-lg tracking-tight hover:scale-110 hover:position-relative transition-all cursor-pointer">
           Romy Valdez
