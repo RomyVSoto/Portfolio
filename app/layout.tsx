@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Figtree, Manrope } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const manropeHeading = Manrope({subsets:['latin'],variable:'--font-heading'});
 
@@ -36,6 +37,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-[#FCF9F8]">
         <Header />
         {children}
+        <Footer />
         </body>
     </html>
   );
