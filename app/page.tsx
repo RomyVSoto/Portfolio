@@ -79,21 +79,21 @@ const Technologies = {
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-40 pt-20">
+    <div className="flex flex-col gap-20 sm:gap-28 md:gap-40 pt-20">
       {/* Hero */}
-      <section id="hero" className="flex items-center px-10 py-20">
+      <section id="hero" className="flex items-center px-6 sm:px-10 py-12 sm:py-20">
         <div className="flex flex-col gap-5">
           <div className="flex flex-col">
             <span className="font-sans font-light text-xs text-[#B91C1C] tracking-widest">
               AVAILABLE FOR OPORTUNITIES
             </span>
-            <span className="font-heading font-bold text-5xl tracking-tight">
+            <span className="font-heading font-bold text-4xl sm:text-5xl tracking-tight">
               Romy Valdez
             </span>
-            <span className="font-heading font-semibold text-2xl text-[#7B7A7A] tracking-widest">
+            <span className="font-heading font-semibold text-xl sm:text-2xl text-[#7B7A7A] tracking-widest">
               Jr. Full Stack Developer
             </span>
-            <p className="font-sans font-light text-sm text-[#7B7A7A] max-w-150">
+            <p className="font-sans font-light text-sm text-[#7B7A7A] max-w-md sm:max-w-150">
               Building modern web applications with clean code and real-world
               solutions. Architecting digital experiences that balance technical
               maturity with refined simplicity.
@@ -114,7 +114,7 @@ export default function Home() {
 
       {/* Projects */}
       <section id="projects" className="flex items-center py-10">
-        <div className="flex flex-col gap-10 px-10">
+        <div className="flex flex-col gap-8 sm:gap-10 px-6 sm:px-10 w-full">
           <div className="flex flex-col gap-2">
             <span className="font-sans font-light text-xs text-[#B91C1C] tracking-widest">
               Projects
@@ -123,21 +123,21 @@ export default function Home() {
               Recent Projects
             </span>
           </div>
-          <div className="px-16">
+          <div className="px-6 sm:px-10 md:px-16">
             <Carousel>
               <CarouselContent>
                 {Projects.map((project) => (
                   <CarouselItem
                     key={project.name}
-                    className="flex items-center gap-10"
+                    className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10"
                   >
-                    <div>
+                    <div className="w-full md:w-auto shrink-0">
                       <Image
                         src={project.image}
                         alt={project.name}
                         width={700}
                         height={500}
-                        className="rounded-lg"
+                        className="rounded-lg w-full md:w-auto max-w-full"
                       />
                     </div>
                     <div className="flex flex-col gap-6">
@@ -181,8 +181,8 @@ export default function Home() {
       </section>
 
       {/* Experience */}
-      <section id="experience" className="flex gap-14 p-10 py-20 bg-[#F6F3F2]">
-        <div className="flex flex-col gap-2">
+      <section id="experience" className="flex flex-col md:flex-row gap-8 md:gap-14 p-6 md:p-10 py-12 md:py-20 bg-[#F6F3F2]">
+        <div className="flex flex-col gap-2 md:min-w-65">
           <span className="font-sans font-light text-xs text-[#B91C1C] tracking-widest">
             PROFESSIONAL GROWTH
           </span>
@@ -223,12 +223,12 @@ export default function Home() {
       </section>
 
       {/* About */}
-      <section id="about" className="flex items-center gap-14 p-10 py-20">
-        <div className="flex flex-col gap-2 bg-white p-20 rounded-lg">
+      <section id="about" className="flex flex-col lg:flex-row items-start gap-8 lg:gap-14 p-6 lg:p-10 py-12 lg:py-20">
+        <div className="flex flex-col gap-2 bg-white p-8 sm:p-12 lg:p-20 rounded-lg w-full lg:w-auto">
           <span className="font-sans font-light text-xs text-[#B91C1C] tracking-widest">
             THE DEVELOPER
           </span>
-          <span className="font-heading font-bold text-3xl tracking-tight">
+          <span className="font-heading font-bold text-2xl sm:text-3xl tracking-tight">
             Bridging Networking & Software Engineering
           </span>
           <span className="font-sans font-light text-md text-[#5F5F5F] max-w-lg">
@@ -237,7 +237,7 @@ export default function Home() {
             in the Dominican Republic.
           </span>
         </div>
-        <div className="flex flex-col gap-4 p-20">
+        <div className="flex flex-col gap-4 w-full lg:w-auto lg:p-10">
           <div className="flex flex-col gap-2 bg-[#F0EDED] px-4 py-6 rounded-lg">
             <span className="font-heading font-bold text-sm text-[#323232] tracking-wider">
               FRONTEND
@@ -287,19 +287,19 @@ export default function Home() {
       </section>
 
       {/* Contact */}
-      <section className="flex justify-between items-center py-30 px-40 bg-[#0E0E0E]">
+      <section className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 py-16 md:py-24 px-8 sm:px-16 md:px-24 lg:px-40 bg-[#0E0E0E]">
         <div className="flex flex-col gap-4">
-          <span className="font-heading font-bold text-4xl text-[#F9F6FF] tracking-tight">
-          Let&apos;s build something enduring.
-        </span>
-        <span className="font-sans font-light text-lg text-[#9E9C9C] max-w-xl">
-          Open to collaborative projects, technical discussions, or professional
-          opportunities in full-stack development.
-        </span>
+          <span className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl text-[#F9F6FF] tracking-tight">
+            Let&apos;s build something enduring.
+          </span>
+          <span className="font-sans font-light text-base sm:text-lg text-[#9E9C9C] max-w-xl">
+            Open to collaborative projects, technical discussions, or professional
+            opportunities in full-stack development.
+          </span>
         </div>
-        <div>
+        <div className="shrink-0">
           <Link href="mailto:romyavaldez@gmail.com">
-            <Button className="font-heading font-bold text-lg px-20 py-8 cursor-pointer hover:scale-105 transition-all">Get in Touch</Button>
+            <Button className="font-heading font-bold text-base sm:text-lg px-10 py-6 sm:px-16 sm:py-7 md:px-20 md:py-8 cursor-pointer hover:scale-105 transition-all">Get in Touch</Button>
           </Link>
         </div>
       </section>

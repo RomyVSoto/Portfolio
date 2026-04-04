@@ -23,7 +23,7 @@ export default function Header() {
           Romy Valdez
         </div>
       </Link>
-      <div className="flex gap-10">
+      <div className="hidden md:flex gap-6 lg:gap-10">
         <Link href="#projects">
           <span className="cursor-pointer underline underline-offset-6 decoration-transparent hover:underline-offset-1 hover:decoration-red-500 transition-all">
             Projects
@@ -42,7 +42,7 @@ export default function Header() {
       </div>
       <div>
         <Link href="https://path.cv/romyavaldez" target="_blank">
-          <Button className="font-heading py-5 px-5 text-md tracking-tight cursor-pointer hover:bg-[#991B1B] transition-all hover:scale-105">
+          <Button className="font-heading py-4 px-4 sm:py-5 sm:px-5 text-sm sm:text-md tracking-tight cursor-pointer hover:bg-[#991B1B] transition-all hover:scale-105">
             Resume
           </Button>
         </Link>
