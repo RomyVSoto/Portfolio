@@ -47,7 +47,7 @@ const Projects = [
       "A weather application that displays current weather conditions and forecasts for any location worldwide.",
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "React Query"],
     image: "/WeatherApp.png",
-    liveView: "https://weather-app-umber-phi-67.vercel.app/",
+    liveView: "https://weather-app-phi-seven-33.vercel.app/",
     github: "https://github.com/RomyVSoto/Weather-App",
   },
 ];
