@@ -41,6 +41,15 @@ const Projects = [
     liveView: "https://www.globalclink.com/",
     github: "https://github.com/RomyVSoto/GCL-Webpage",
   },
+  {
+    name: "Weather App",
+    description:
+      "A weather application that displays current weather conditions and forecasts for any location worldwide.",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "React Query"],
+    image: "/WeatherApp.png",
+    liveView: "https://weather-app-umber-phi-67.vercel.app/",
+    github: "https://github.com/RomyVSoto/Weather-App",
+  },
 ];
 
 const Experience = [
