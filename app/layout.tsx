@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/next";
 
 const manropeHeading = Manrope({subsets:['latin'],variable:'--font-heading'});
 
@@ -38,7 +39,8 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
-        </body>
+        <Analytics />
+      </body>
     </html>
   );
 }

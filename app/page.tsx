@@ -14,13 +14,17 @@ const Projects = [
   {
     name: "BookIt",
     description:
-      "A high-performance booking engine designed for scalability. Featuring real-time availability updates, automated scheduling workflows, and a streamlined administrative interface.",
+      "Full-stack appointment booking system with authentication, Google OAuth, and role-based access control. Clients book and manage appointments while admins control services, schedules, and availability. Built with Next.js, Supabase, and React Query.",
     technologies: [
       "Next.js",
       "TypeScript",
-      "Tailwind CSS",
-      "React Query",
       "Supabase",
+      "Supabase Auth",
+      "Google OAuth",
+      "TailwindCSS",
+      "React Query",
+      "Zod",
+      "React Hook Form",
     ],
     image: "/BookIt.png",
     liveView: "https://book-it-drab.vercel.app/",
@@ -29,11 +33,11 @@ const Projects = [
   {
     name: "Global Communications Link",
     description:
-      "A comprehensive communication platform connecting businesses with global clients. Features include real-time messaging, file sharing, and multi-language support.",
+      "Corporate website for Global Communications Link, a fiber optic and network infrastructure company based in the US. Features service showcase, certifications, codes & standards, and a contact/quote request form. Built with Next.js and Node.js/Express.",
     technologies: [
       "Next.js",
       "JavaScript",
-      "TawilindCSS",
+      "TailwindCSS",
       "Node.js",
       "Nodemailer",
     ],
@@ -44,11 +48,38 @@ const Projects = [
   {
     name: "Weather App",
     description:
-      "A weather application that displays current weather conditions and forecasts for any location worldwide.",
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "React Query"],
+      "Weather dashboard showing real-time conditions and 5-day forecast for any city. Features city search with debounced autocomplete, UV index, visibility, and sunrise/sunset data. Built with Next.js, React Query, and WeatherAPI.",
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "TailwindCSS",
+      "Shadcn UI",
+      "React Query",
+      "WeatherAPI",
+      "use-debounce",
+    ],
     image: "/WeatherApp.png",
     liveView: "https://weather-app-phi-seven-33.vercel.app/",
     github: "https://github.com/RomyVSoto/Weather-App",
+  },
+  {
+    name: "Split Sync",
+    description:
+      "Real-time group expense tracker. Create a group, share the invite code, and watch expenses update instantly as members add them. Built with Next.js, Supabase Realtime, React Query, and Recharts.",
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Supabase",
+      "Supabase Realtime",
+      "TailwindCSS",
+      "Shadcn UI",
+      "React Query",
+      "Recharts",
+      "Zod",
+    ],
+    image: "/SplitSync.png",
+    liveView: "https://split-sync-mu.vercel.app/",
+    github: "https://github.com/RomyVSoto/SplitSync",
   },
 ];
 
