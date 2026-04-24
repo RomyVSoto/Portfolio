@@ -81,6 +81,27 @@ const Projects = [
     liveView: "https://split-sync-mu.vercel.app/",
     github: "https://github.com/RomyVSoto/SplitSync",
   },
+  {
+    name: "TaskFlow",
+    description:
+      "Full-stack Kanban board with drag and drop. Create boards, manage tasks across columns, and track priorities in real time. Built with the T3 Stack — Next.js, Prisma, tRPC, and NextAuth.",
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Prisma",
+      "tRPC",
+      "NextAuth",
+      "PostgreSQL",
+      "TailwindCSS",
+      "Shadcn UI",
+      "Zod",
+      "dnd-kit",
+    ],
+    image: "/TaskFlow.png",
+    liveView: "https://task-flow-orcin-seven.vercel.app/",
+    github: "https://github.com/RomyVSoto/task-flow",
+  },
+
 ];
 
 const Experience = [
