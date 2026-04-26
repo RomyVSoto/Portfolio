@@ -7,8 +7,17 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { ArrowDown, ArrowUpRight, Code, Dot } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowRight,
+  ArrowUpRight,
+  Code,
+  Dot,
+  Download,
+  MoveRight,
+} from "lucide-react";
 import Link from "next/link";
+import { Separator } from "@base-ui/react";
 
 const Projects = [
   {
@@ -101,7 +110,6 @@ const Projects = [
     liveView: "https://task-flow-orcin-seven.vercel.app/",
     github: "https://github.com/RomyVSoto/task-flow",
   },
-
 ];
 
 const Experience = [
@@ -148,39 +156,115 @@ const Technologies = {
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-20 sm:gap-28 md:gap-40 pt-20">
+    <div className="flex flex-col gap-20 sm:gap-28 md:gap-40 pt-20 px-16">
       {/* Hero */}
       <section
         id="hero"
-        className="flex items-center px-6 sm:px-10 py-12 sm:py-20"
+        className="flex items-center justify-between min-h-screen gap-16 py-20"
       >
-        <div className="flex flex-col gap-5">
-          <div className="flex flex-col">
-            <span className="font-sans font-light text-xs text-[#B91C1C] tracking-widest">
-              AVAILABLE FOR OPORTUNITIES
-            </span>
-            <span className="font-heading font-bold text-4xl sm:text-5xl tracking-tight">
-              Romy Valdez
-            </span>
-            <span className="font-heading font-semibold text-xl sm:text-2xl text-[#7B7A7A] tracking-widest">
-              Jr. Full Stack Developer
-            </span>
-            <p className="font-sans font-light text-sm text-[#7B7A7A] max-w-md sm:max-w-150">
-              Building modern web applications with clean code and real-world
-              solutions. Architecting digital experiences that balance technical
-              maturity with refined simplicity.
-            </p>
-          </div>
-          <span className="flex gap-2">
-            <Link href="#projects">
-              <Button className="bg-[#B91C1C] text-white px-6 py-5 rounded-md flex items-center">
-                View Projects <ArrowDown className="w-5 h-5" />
-              </Button>
-            </Link>
-            <Button className="bg-[#E4E2E2] text-black px-6 py-5 rounded-md">
-              Contact Me
+        {/* Columna izquierda */}
+        <div className="w-3/4 flex flex-col gap-8">
+          <span className="flex items-center gap-2 font-sans text-xs text-text-secondary tracking-widest">
+            <span className="w-2 h-2 rounded-full bg-green pulse-dot" />
+            AVAILABLE FOR WORK — REMOTE / DR
+          </span>
+          <span className="flex flex-col font-sans font-black text-9xl tracking-tight">
+            <p>Full-Stack</p>
+            <p className="italic text-accent font-extrabold">Developer.</p>
+          </span>
+          <span className="font-sans font-normal text-lg text-text-secondary w-3/4">
+            Building{" "}
+            <strong className="text-text-primary">
+              scalable web applications
+            </strong>{" "}
+            with modern technologies. Based in Santo Domingo, DR — shipping
+            production interfaces from concept to deploy.
+          </span>
+          <span className="flex gap-4">
+            <Button className="gap-2 bg-accent text-md text-white px-8 py-7 rounded-none hover:bg-accent-hover">
+              View My Work <ArrowRight />
+            </Button>
+            <Button
+              variant="outline"
+              className="gap-2 px-8 py-7 border-accent text-sm text-accent rounded-none hover:bg-accent hover:text-white transition-all"
+            >
+              <Download /> Download CV
             </Button>
           </span>
+          <span className="flex gap-4 items-center text-text-secondary">
+            <p className="text-text-muted text-xs tracking-widest">STACK</p>
+            <Separator
+              orientation="vertical"
+              className="bg-text-primary/10 w-px h-6"
+            />
+            <span className="flex items-center gap-3 font-sans text-sm">
+              <p>Next.js</p>
+              <span className="rounded-full w-0.5 h-0.5 bg-text-secondary" />
+              <p>TypeScript</p>
+              <span className="rounded-full w-0.5 h-0.5 bg-text-secondary" />
+              <p>Supabase</p>
+              <span className="rounded-full w-0.5 h-0.5 bg-text-secondary" />
+              <p>Prisma</p>
+              <span className="rounded-full w-0.5 h-0.5 bg-text-secondary" />
+              <p>tRPC</p>
+            </span>
+          </span>
+        </div>
+
+        {/* Columna derecha */}
+        <div className="w-2/4 h-120 relative border border-border flex flex-col justify-between py-4 px-6">
+          {/* Esquinas */}
+          <span className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-accent" />
+          <span className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-accent" />
+          <span className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-accent" />
+          <span className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-accent" />
+
+          {/* Header RV/2026 y LIVE */}
+          <div className="flex justify-between items-center py-4">
+            <span className="font-mono text-xs text-text-muted tracking-widest">
+              RV / 2026
+            </span>
+            <span className="flex items-center gap-1.5 font-mono text-xs text-text-muted">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent pulse-dot" />
+              LIVE
+            </span>
+          </div>
+
+          {/* Esfera */}
+          <div className="flex items-center justify-center flex-1">
+            <div className="absolute w-80 h-80 rounded-full border border-border opacity-50" />
+            <div
+              className="relative w-64 h-64 rounded-full breathe"
+              style={{
+                background:
+                  "radial-gradient(circle at 35% 35%, #E5192A, #8B0000)",
+                boxShadow: "0 0 80px 30px #C1121F44",
+              }}
+            />
+          </div>
+
+          {/* Código snippet */}
+          <div className="font-mono text-xs space-y-1 border border-border p-3 z-10 bg-bg">
+            <p className="text-text-muted">// portfolio.tsx</p>
+            <p>
+              <span className="text-accent">const </span>
+              <span className="text-text-primary">developer</span>
+              <span className="text-text-secondary"> = {"{"}</span>
+            </p>
+            <p className="pl-4 text-text-secondary">
+              name:{" "}
+              <span className="text-text-primary">&apos;Romy Valdez&apos;</span>
+              ,
+            </p>
+            <p className="pl-4 text-text-secondary">
+              role:{" "}
+              <span className="text-text-primary">&apos;Full-Stack&apos;</span>,
+            </p>
+            <p className="pl-4 text-text-secondary">
+              status: <span className="text-accent">&apos;available&apos;</span>
+            </p>
+            <p className="text-text-secondary">{"}"}</p>
+          </div>
         </div>
       </section>
 
