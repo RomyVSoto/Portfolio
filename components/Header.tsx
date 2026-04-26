@@ -6,7 +6,7 @@ import { MoveRight } from "lucide-react";
 
 export default function Header() {
   return (
-    <header className="fixed top-0 w-full z-50 flex justify-between items-center px-16 py-5">
+    <header className="fixed top-0 w-full z-50 flex justify-between items-center px-16 py-5 font-heading">
       <div className="font-mono font-bold text-2xl text-accent tracking-tight">
         <Link href="#" className="cursor-pointer">
           RV<span className="text-white">.</span>
