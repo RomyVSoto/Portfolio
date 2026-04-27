@@ -12,7 +12,7 @@ export default function Header() {
           RV<span className="text-white">.</span>
         </Link>
       </div>
-      <div className="flex gap-10 font-body font-medium text-sm text-text-secondary">
+      <div className="flex gap-10 font-sans font-medium text-sm text-text-secondary">
         <Link
           href="#"
           className="hover:text-accent transition-colors duration-300 cursor-pointer relative group"

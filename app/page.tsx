@@ -1,29 +1,16 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import {
-  ArrowDown,
-  ArrowRight,
-  ArrowUpRight,
-  Code,
-  Dot,
-  Download,
-  MoveRight,
-} from "lucide-react";
+import { ArrowRight, Code, Dot, Download, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { Separator } from "@base-ui/react";
 
 const Projects = [
   {
+    number: "01",
+    category: "Appointment Booking",
     name: "BookIt",
     description:
-      "Full-stack appointment booking system with authentication, Google OAuth, and role-based access control. Clients book and manage appointments while admins control services, schedules, and availability. Built with Next.js, Supabase, and React Query.",
+      "Full-stack appointment booking system with authentication, Google OAuth, and role-based access control. Clients book and manage appointments while admins control services, schedules, and availability.",
     technologies: [
       "Next.js",
       "TypeScript",
@@ -40,9 +27,11 @@ const Projects = [
     github: "https://github.com/RomyVSoto/BookIt",
   },
   {
+    number: "02",
+    category: "Corporate Website",
     name: "Global Communications Link",
     description:
-      "Corporate website for Global Communications Link, a fiber optic and network infrastructure company based in the US. Features service showcase, certifications, codes & standards, and a contact/quote request form. Built with Next.js and Node.js/Express.",
+      "Corporate website for Global Communications Link, a fiber optic and network infrastructure company based in the US. Features service showcase, certifications, codes & standards, and a contact/quote request form.",
     technologies: [
       "Next.js",
       "JavaScript",
@@ -55,9 +44,11 @@ const Projects = [
     github: "https://github.com/RomyVSoto/GCL-Webpage",
   },
   {
+    number: "03",
+    category: "Weather Dashboard",
     name: "Weather App",
     description:
-      "Weather dashboard showing real-time conditions and 5-day forecast for any city. Features city search with debounced autocomplete, UV index, visibility, and sunrise/sunset data. Built with Next.js, React Query, and WeatherAPI.",
+      "Weather dashboard showing real-time conditions and 5-day forecast for any city. Features city search with debounced autocomplete, UV index, visibility, and sunrise/sunset data.",
     technologies: [
       "Next.js",
       "TypeScript",
@@ -72,9 +63,11 @@ const Projects = [
     github: "https://github.com/RomyVSoto/Weather-App",
   },
   {
+    number: "04",
+    category: "Expense Tracker",
     name: "Split Sync",
     description:
-      "Real-time group expense tracker. Create a group, share the invite code, and watch expenses update instantly as members add them. Built with Next.js, Supabase Realtime, React Query, and Recharts.",
+      "Real-time group expense tracker. Create a group, share the invite code, and watch expenses update instantly as members add them.",
     technologies: [
       "Next.js",
       "TypeScript",
@@ -91,9 +84,11 @@ const Projects = [
     github: "https://github.com/RomyVSoto/SplitSync",
   },
   {
+    number: "05",
+    category: "Kanban Board",
     name: "TaskFlow",
     description:
-      "Full-stack Kanban board with drag and drop. Create boards, manage tasks across columns, and track priorities in real time. Built with the T3 Stack — Next.js, Prisma, tRPC, and NextAuth.",
+      "Full-stack Kanban board with drag and drop. Create boards, manage tasks across columns, and track priorities in real time.",
     technologies: [
       "Next.js",
       "TypeScript",
@@ -156,11 +151,11 @@ const Technologies = {
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-20 sm:gap-28 md:gap-40 pt-20 px-16">
+    <div className="flex flex-col gap-12 sm:gap-14 md:gap-20 pt-10">
       {/* Hero */}
       <section
         id="hero"
-        className="flex items-center justify-between min-h-screen gap-16 py-20"
+        className="flex items-center justify-between min-h-screen gap-16 py-16 px-16"
       >
         {/* Columna izquierda */}
         <div className="w-3/4 flex flex-col gap-8">
@@ -269,115 +264,112 @@ export default function Home() {
       </section>
 
       {/* Projects */}
-      <section id="projects" className="flex items-center py-10">
-        <div className="flex flex-col gap-8 sm:gap-10 px-6 sm:px-10 w-full">
-          <div className="flex flex-col gap-2">
-            <span className="font-sans font-light text-xs text-[#B91C1C] tracking-widest">
-              Projects
-            </span>
-            <span className="font-heading font-bold text-3xl tracking-tight">
-              Recent Projects
-            </span>
+      <section id="projects" className="flex flex-col gap-14 py-1 px-5">
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-3 font-sans font-normal text-xs text-text-muted tracking-widest">
+            <span className="w-8 h-px bg-accent"></span>
+            <span className="font-sans font-bold">SELECTED WORK</span>
           </div>
-          <div className="px-10 sm:px-12 md:px-16">
-            <Carousel>
-              <CarouselContent>
-                {Projects.map((project) => (
-                  <CarouselItem
-                    key={project.name}
-                    className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10"
-                  >
-                    <div className="w-full md:w-auto shrink-0">
-                      <Image
-                        src={project.image}
-                        alt={project.name}
-                        width={700}
-                        height={500}
-                        className="rounded-lg w-full md:w-125 lg:w-175 h-auto max-h-52 sm:max-h-64 md:max-h-none object-cover md:object-fill"
-                      />
-                    </div>
-                    <div className="flex flex-col gap-4 md:gap-6">
-                      <span className="font-heading font-bold text-xl sm:text-2xl">
-                        {project.name}
-                      </span>
-                      <p className="font-sans font-light text-sm sm:text-md text-[#5F5F5F]">
-                        {project.description}
-                      </p>
-                      <span className="font-sans font-thin flex flex-wrap gap-2">
-                        {project.technologies.map((tech) => (
-                          <p
-                            key={tech}
-                            className="text-[#525252] text-xs px-2 py-1 bg-[#E4E2E1] rounded-full"
-                          >
-                            {tech}
-                          </p>
-                        ))}
-                      </span>
-                      <div className="flex gap-3">
-                        <Link href={project.liveView} target="_blank">
-                          <Button className="p-1 bg-transparent font-sans font-extrabold tracking-tighter text-[#B91C1C] text-sm cursor-pointer hover:bg-[#5F5F5F] hover:text-white hover:scale-105 transition-all">
-                            Live View <ArrowUpRight className="w-5 h-5" />
-                          </Button>
-                        </Link>
-                        <Link href={project.github} target="_blank">
-                          <Button className="p-1 bg-transparent font-sans font-semibold tracking-tighter text-[#5F5F5F] text-sm cursor-pointer hover:bg-[#B91C1C] hover:text-white hover:scale-105 transition-all">
-                            GitHub <Code className="w-5 h-5" />
-                          </Button>
-                        </Link>
-                      </div>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious className="w-10 h-10" />
-              <CarouselNext className="w-10 h-10" />
-            </Carousel>
-          </div>
+          <span className="flex gap-2 font-sans font-bold text-7xl text-white">
+            Personal <p className="text-accent">projects.</p>
+          </span>
         </div>
+        {Projects.map((project) => (
+          <div
+            key={project.name}
+            className="flex flex-col bg-surface hover:[&_.bar]:w-full hover:[&_.num]:text-accent hover:[&_.image]:shadow-xl hover:[&_.tab-name]:text-accent border border-border-subtle hover:border-border hover:scale-[100.2%] transition-all duration-300"
+          >
+            <span className="bar relative bottom-0 left-0 w-0 h-px bg-accent transition-all duration-300" />
+
+            <div className="card flex items-center justify-between">
+              <div className="w-full flex flex-col py-20 px-10 gap-10">
+                <div className="flex gap-4 items-start">
+                  <span className="num font-mono font-semibold text-6xl text-text-muted tracking-tight transition-all duration-300">
+                    {project.number}
+                  </span>
+                  <div className="flex mt-10 flex-col gap-2">
+                    <span className="font-sans text-xs text-text-muted tracking-widest">
+                      {project.category.toUpperCase()}
+                    </span>
+                    <span className="font-sans font-bold text-4xl text-text-primary tracking-tight">
+                      {project.name}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex flex-wrap items-center gap-2 max-w-3/4">
+                  {project.technologies.map((tech) => (
+                    <span
+                      key={tech}
+                      className="font-sans font-normal text-xs text-text-secondary text-center border border-border py-1 px-2 tracking-wide"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+                <div className="font-sans font-medium text-md text-text-secondary max-w-3/4">
+                  {project.description}
+                </div>
+                <div className="flex gap-5">
+                  <a
+                    href={project.liveView}
+                    className="bg-transparent hover:bg-transparent text-xs hover:text-accent hover:*:text-accent flex items-center underline underline-offset-6 decoration-text-muted hover:decoration-accent transition-all duration-75 cursor-pointer"
+                  >
+                    VIEW LIVE <ExternalLink className="w-4 h-4 ml-1" />
+                  </a>
+                  <a
+                    href={project.github}
+                    className="bg-transparent hover:bg-transparent text-xs hover:text-accent hover:*:text-accent flex items-center underline underline-offset-6 decoration-text-muted hover:decoration-accent transition-all duration-75 cursor-pointer"
+                  >
+                    GITHUB <ExternalLink className="w-4 h-4 ml-1" />
+                  </a>
+                </div>
+              </div>
+
+              <div className="w-full flex flex-col py-10 px-10 ">
+                <div className="bg-surface flex gap-4 border border-border p-2">
+                  <span className="flex items-center gap-2 text-text-muted">
+                    <span className="w-2 h-2 bg-text-muted rounded-full"></span>
+                    <span className="w-2 h-2 bg-text-muted rounded-full"></span>
+                    <span className="w-2 h-2 bg-text-muted rounded-full"></span>
+                  </span>
+                  <span className="tab-name font-sans font-normal text-xs text-text-muted transition-all duration-300">
+                    {project.name.toLowerCase()}.app
+                  </span>
+                </div>
+                <div className="image shadow-none shadow-accent transition-all duration-300">
+                  <Image
+                    src={project.image}
+                    alt={project.name}
+                    width={1000}
+                    height={1000}
+                    className="rounded-b-sm"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
       </section>
 
-      {/* Experience */}
-      <section
-        id="experience"
-        className="flex flex-col md:flex-row gap-8 md:gap-14 p-6 md:p-10 py-12 md:py-20 bg-[#F6F3F2]"
-      >
-        <div className="flex flex-col gap-2 md:min-w-65">
-          <span className="font-sans font-light text-xs text-[#B91C1C] tracking-widest">
-            PROFESSIONAL GROWTH
+      {/* About */}
+      <section id="projects" className="flex justify-between gap-14 py-1 px-5">
+        <div className="w-full flex flex-col gap-4">
+          <div className="flex items-center gap-3 font-sans font-normal text-xs text-text-muted tracking-widest">
+            <span className="w-8 h-px bg-accent"></span>
+            <span className="font-sans font-bold">ABOUT ME</span>
+          </div>
+          <span className="font-sans font-bold text-5xl text-white">
+            Passionate about <span className="text-accent">clean code</span> and
+            great UX.
           </span>
-          <span className="font-heading font-bold text-3xl tracking-tight">
-            Career Timeline
-          </span>
-          <p className="font-sans font-light text-md text-[#5F5F5F] max-w-md">
-            A trajectory focused on technical precision and network
-            architecture, now converging into full- stack development.
-          </p>
         </div>
-        <div className="flex flex-col gap-10">
-          {Experience.map((experience) => (
-            <div key={experience.title} className="flex gap-4">
-              <span className="flex flex-col items-center">
-                <Dot
-                  className={`scale-300 z-10 ${experience.active ? "text-[#B91C1C]" : "text-[#B3B2B1]"}`}
-                />
-                <p className="h-full w-0 border-[0.5px] border-[#D4D2D0]"></p>
-              </span>
-              <span className="flex flex-col gap-1">
-                <p className="font-sans font-semibold text-xs text-[#B91C1C]">
-                  {experience.period}
-                </p>
-                <h1 className="font-heading font-bold text-xl">
-                  {experience.title}
-                </h1>
-                <h3 className="font-heading font-base text-md text-[#5F5F5F] tracking-tighter">
-                  {experience.position}
-                </h3>
-                <p className="font-sans font-light text-sm text-[#5F5F5F] max-w-md">
-                  {experience.description}
-                </p>
-              </span>
-            </div>
-          ))}
+        <div className="w-full flex flex-col gap-4">
+          <div>
+            <span><span className="p-1 bg-accent"></span></span>
+            <span></span>
+          </div>
+          <div></div>
+          <div></div>
         </div>
       </section>
 
