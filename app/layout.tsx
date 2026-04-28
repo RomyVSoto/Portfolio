@@ -4,6 +4,8 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import CustomCursor from "@/components/CustomCursor";
+
 import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -33,6 +35,7 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col bg-bg">
+        <CustomCursor />
         <Header />
         {children}
         <Footer />

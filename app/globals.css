@@ -174,3 +174,7 @@
 .breathe {
   animation: breathe 10s ease-in-out infinite;
 }
+
+* {
+  cursor: none !important;
+}
