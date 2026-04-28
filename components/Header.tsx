@@ -41,6 +41,7 @@ export default function Header() {
         );
         header.classList.add("bg-transparent");
         gsap.to(header, {
+          backgroundColor: "transparent",
           borderBottom: "1px solid transparent",
           duration: 0.3,
           ease: "power2.out",
@@ -63,28 +64,28 @@ export default function Header() {
       </div>
       <div className="flex gap-10 font-sans font-medium text-sm text-text-secondary">
         <Link
-          href="#"
+          href="#projects"
           className="hover:text-accent transition-colors duration-300 cursor-pointer relative group"
         >
           Work
           <span className="absolute bottom-0 left-0 w-0 h-px bg-accent group-hover:w-full transition-all duration-300" />
         </Link>
         <Link
-          href="#"
+          href="#about"
           className="hover:text-accent transition-colors duration-300 cursor-pointer relative group"
         >
           About
           <span className="absolute bottom-0 left-0 w-0 h-px bg-accent group-hover:w-full transition-all duration-300" />
         </Link>
         <Link
-          href="#"
+          href="#experience"
           className="hover:text-accent transition-colors duration-300 cursor-pointer relative group"
         >
           Experience
           <span className="absolute bottom-0 left-0 w-0 h-px bg-accent group-hover:w-full transition-all duration-300" />
         </Link>
         <Link
-          href="#"
+          href="#contact"
           className="hover:text-accent transition-colors duration-300 cursor-pointer relative group"
         >
           Contact
