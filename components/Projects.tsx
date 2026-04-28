@@ -158,7 +158,7 @@ export default function ProjectsSection() {
     <section ref={sectionRef} id="projects" className="flex flex-col gap-14">
       {/* Header */}
       <div className="projects-container overflow-hidden z-10 bg-bg py-20">
-        <div className="projects-header flex flex-col gap-4 px-16">
+        <div className="projects-header flex flex-col gap-4 px-16 py-4">
           <div className="flex items-center gap-3 font-sans font-normal text-xs text-text-muted tracking-widest">
             <span className="w-8 h-px bg-accent"></span>
             <span className="font-sans font-bold">SELECTED WORK</span>
@@ -169,12 +169,12 @@ export default function ProjectsSection() {
         </div>
 
         {/* Track que se mueve horizontalmente */}
-        <div className="projects-track flex gap-2">
+        <div className="projects-track flex gap-4">
           {Projects.map((project) => (
             <div key={project.name}>
               <div
                 key={project.name}
-                className="my-10 project-card shrink-0 w-screen shadow-xl shadow-surface-2 flex flex-col bg-surface hover:[&_.bar]:w-full hover:[&_.num]:text-accent hover:[&_.image]:shadow-xl hover:[&_.tab-name]:text-accent border border-border-subtle hover:border-border transition-all duration-300"
+                className="project-card shrink-0 h-full w-screen shadow-xl shadow-surface-2 flex flex-col bg-surface hover:[&_.bar]:w-full hover:[&_.num]:text-accent hover:[&_.image]:shadow-xl hover:[&_.tab-name]:text-accent border border-border-subtle hover:border-border transition-all duration-300"
               >
                 <span className="bar relative bottom-0 left-0 w-0 h-px bg-accent transition-all duration-300" />
                 <div className="card flex items-center justify-between">

@@ -105,12 +105,12 @@ export default function HeroSection() {
           >
             View My Work <ArrowRight />
           </Link>
-          <Button
-            variant="outline"
-            className="gap-2 px-8 py-7 border-accent text-sm text-accent rounded-none hover:bg-accent hover:text-white transition-all"
+          <a
+            href="https://path.cv/romyvsoto"
+            className="flex items-center border border-accent gap-2 px-8 py-2 text-sm text-accent rounded-none hover:bg-accent hover:text-white transition-all cursor-pointer"
           >
             <Download /> Download CV
-          </Button>
+          </a>
         </span>
         <span
           ref={stackRef}
@@ -169,7 +169,7 @@ export default function HeroSection() {
 
         {/* Código snippet */}
         <div className="font-mono text-xs space-y-1 border border-border p-3 z-10 bg-bg">
-          <p className="text-text-muted">// portfolio.tsx</p>
+          <p className="text-text-muted">{"// portfolio.tsx"}</p>
           <p>
             <span className="text-accent">const </span>
             <span className="text-text-primary">developer</span>

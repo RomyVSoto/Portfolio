@@ -93,9 +93,12 @@ export default function Header() {
         </Link>
       </div>
       <div>
-        <Button className="bg-accent hover:bg-accent-hover transition-colors duration-300 px-5 py-5 rounded-xs">
+        <Link
+          href="#contact"
+          className="font-sans font-semibold flex items-center gap-2 bg-accent hover:bg-accent-hover transition-colors duration-300 px-3 py-2 rounded-xs"
+        >
           Hire Me <MoveRight />
-        </Button>
+        </Link>
       </div>
     </header>
   );
