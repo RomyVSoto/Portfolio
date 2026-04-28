@@ -15,7 +15,6 @@ export default function ContactSection() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Label GET IN TOUCH
       gsap.from(".contact-label", {
         opacity: 0,
         y: 20,
@@ -28,10 +27,9 @@ export default function ContactSection() {
         },
       });
 
-      // Heading
       gsap.fromTo(
         ".contact-heading",
-        { opacity: 0, y: 80 }, // estado inicial forzado
+        { opacity: 0, y: 80 },
         {
           opacity: 1,
           y: 0,
@@ -45,7 +43,6 @@ export default function ContactSection() {
         },
       );
 
-      // Subtitle
       gsap.from(".contact-subtitle", {
         opacity: 0,
         y: 20,
@@ -58,7 +55,6 @@ export default function ContactSection() {
         },
       });
 
-      // Cards con stagger
       gsap.fromTo(
         ".contact-card",
         { opacity: 0, y: 60 },
