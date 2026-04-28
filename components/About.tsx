@@ -8,7 +8,7 @@ import { Diamond } from "lucide-react";
 gsap.registerPlugin(ScrollTrigger);
 
 const Technologies = {
-  frontend: ["React", "Next.js", "TypeScript", "Tailwind CSS", "React Query"],
+  frontend: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Shadcn", "React Query"],
   backend: [
     "Node.js",
     "Express",
@@ -19,7 +19,7 @@ const Technologies = {
     "Supabase",
     "JWT",
   ],
-  tools: ["Git", "Docker", "VS Code", "Postman"],
+  tools: ["Git", "VS Code", "Postman"],
 };
 
 export default function About() {
@@ -27,7 +27,6 @@ export default function About() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Columna izquierda — label, título, texto
       gsap.from(".about-left > *", {
         opacity: 0,
         y: 40,
@@ -41,7 +40,6 @@ export default function About() {
         },
       });
 
-      // Cada categoría de skills
       document.querySelectorAll(".about-skill-group").forEach((group) => {
         gsap.from(group, {
           opacity: 0,

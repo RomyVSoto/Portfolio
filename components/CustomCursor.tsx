@@ -12,7 +12,6 @@ export default function CustomCursor() {
     const dot = dotRef.current
     if (!cursor || !dot) return
 
-    // Sigue el mouse
     const onMouseMove = (e: MouseEvent) => {
       gsap.to(cursor, {
         x: e.clientX,
@@ -27,7 +26,6 @@ export default function CustomCursor() {
       })
     }
 
-    // Agranda en hover de elementos interactivos
     const onMouseEnter = () => {
       gsap.to(cursor, {
         scale: 2.5,
@@ -48,7 +46,6 @@ export default function CustomCursor() {
 
     window.addEventListener("mousemove", onMouseMove)
 
-    // Aplica hover a todos los elementos interactivos
     const interactives = document.querySelectorAll("a, button, [data-cursor]")
     interactives.forEach(el => {
       el.addEventListener("mouseenter", onMouseEnter)
@@ -66,12 +63,10 @@ export default function CustomCursor() {
 
   return (
     <>
-      {/* Círculo grande — sigue con delay */}
       <div
         ref={cursorRef}
         className="fixed top-0 left-0 w-8 h-8 rounded-full border border-accent pointer-events-none z-9999 -translate-x-1/2 -translate-y-1/2 mix-blend-difference"
       />
-      {/* Dot pequeño — sigue exacto */}
       <div
         ref={dotRef}
         className="fixed top-0 left-0 w-2 h-2 rounded-full bg-accent pointer-events-none z-9999 -translate-x-1/2 -translate-y-1/2"

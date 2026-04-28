@@ -2,7 +2,6 @@
 
 import { useRef, useEffect } from "react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 
 
 import { ArrowRight, Download } from "lucide-react";

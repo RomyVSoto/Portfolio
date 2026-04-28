@@ -1,3 +1,9 @@
+'use client'
+
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+
 import { Separator } from "@base-ui/react"
 
 const Experience = [
@@ -41,10 +47,72 @@ const Education = [
   },
 ];
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function ExperienceSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(".experience-header", {
+        opacity: 0,
+        y: 40,
+        duration: 0.7,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".experience-header",
+          start: "top 85%",
+          once: true,
+        }
+      })
+
+      document.querySelectorAll(".experience-entry").forEach((entry) => {
+        gsap.from(entry, {
+          opacity: 0,
+          x: -40,
+          duration: 0.6,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: entry,
+            start: "top 85%",
+            once: true,
+          }
+        })
+      })
+
+      gsap.from(".education-label", {
+        opacity: 0,
+        y: 20,
+        duration: 0.6,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".education-label",
+          start: "top 85%",
+          once: true,
+        }
+      })
+
+      document.querySelectorAll(".education-entry").forEach((entry) => {
+        gsap.from(entry, {
+          opacity: 0,
+          x: 40,
+          duration: 0.6,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: entry,
+            start: "top 85%",
+            once: true,
+          }
+        })
+      })
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+  
   return (
-   <section id="experience" className="flex flex-col gap-14 py-20 px-5">
-        <div className="w-full flex flex-col gap-6">
+   <section ref={sectionRef} id="experience" className="flex flex-col gap-14 py-20 px-5">
+        <div className="experiene-header w-full flex flex-col gap-6">
           <div className="flex items-center gap-3 font-sans font-normal text-xs text-text-muted tracking-widest">
             <span className="w-8 h-px bg-accent"></span>
             <span className="font-sans font-bold">EXPERIENCE</span>
@@ -53,13 +121,11 @@ export default function ExperienceSection() {
             Where i&apos;ve <span className="text-accent">worked </span>
           </span>
         </div>
-        {/* Línea vertical del timeline */}
         <div className="relative flex flex-col">
           <div className="absolute left-0 top-0 bottom-0 w-px bg-border" />
 
-          {/* Entry */}
           {Experience.map((exp) => (
-            <div key={exp.title}>
+            <div key={exp.position} className="experience-entry">
               <div className="group flex gap-10 py-10 hover:bg-surface transition-all duration-300">
                 {/* Lado izquierdo — fecha y dot */}
                 <div className="relative flex gap-4 justify-center -translate-x-1.5">
@@ -87,7 +153,7 @@ export default function ExperienceSection() {
             </div>
           ))}
         </div>
-        <div className="flex items-center gap-4">
+        <div className="education-label flex items-center gap-4">
           <span className="text-accent text-xs uppercase tracking-widest">
             EDUCATION
           </span>
@@ -97,9 +163,8 @@ export default function ExperienceSection() {
           <div className="absolute right-0 top-0 bottom-0 w-px bg-border" />
 
           {Education.map((edu) => (
-            <div key={edu.degree}>
+            <div key={edu.degree} className="education-entry">
               <div className="group flex gap-10 py-10 hover:bg-surface transition-all duration-300">
-                {/* Lado izquierdo — contenido */}
                 <div className="flex-1 items-end text-right group-hover:-translate-x-2 flex flex-col gap-2 transition-all duration-300">
                   <span className="text-accent text-xs uppercase tracking-widest">
                     {edu.institution}

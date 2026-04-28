@@ -131,7 +131,6 @@ export default function ProjectsSection() {
       const track = document.querySelector(".projects-track") as HTMLElement;
 
       if (track) {
-        // Espera a que todo cargue antes de calcular
         ScrollTrigger.refresh();
 
         gsap.to(track, {
