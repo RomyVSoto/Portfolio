@@ -1,24 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Figtree, Manrope } from "next/font/google";
+import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import CustomCursor from "@/components/CustomCursor";
+
 import { Analytics } from "@vercel/analytics/next";
 
-const manropeHeading = Manrope({subsets:['latin'],variable:'--font-heading'});
-
-const figtree = Figtree({subsets:['latin'],variable:'--font-sans'});
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk" });
+const jetBrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains-mono" });
 
 export const metadata: Metadata = {
   title: "Romy Valdez",
@@ -33,9 +25,17 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("scroll-smooth", "h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", figtree.variable, manropeHeading.variable)}
+      className={cn(
+        inter.variable,
+        spaceGrotesk.variable,
+        jetBrainsMono.variable,
+        "scroll-smooth",
+        "h-full",
+        "antialiased",
+      )}
     >
-      <body className="min-h-full flex flex-col bg-[#FCF9F8]">
+      <body className="min-h-full flex flex-col bg-bg">
+        <CustomCursor />
         <Header />
         {children}
         <Footer />
