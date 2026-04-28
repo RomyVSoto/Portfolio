@@ -155,7 +155,7 @@ const Technologies = {
 
 const Education = [
   {
-    institution: "Instituto Tecnologico de Las Americas",
+    institution: "Technological Institute of the Americas",
     degree: "Technical Degree in Software Development",
     period: "2023 - 2025",
     description:
