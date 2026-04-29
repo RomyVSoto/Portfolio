@@ -80,7 +80,7 @@ export default function ContactSection() {
     <section
       ref={sectionRef}
       id="contact"
-      className="relative overflow-hidden flex flex-col gap-16 items-center"
+      className="relative overflow-hidden flex flex-col gap-12 lg:gap-16 items-center py-16 lg:py-20 px-6 md:px-10"
     >
       <div
         className="absolute inset-0 pointer-events-none"
@@ -89,7 +89,7 @@ export default function ContactSection() {
             "radial-gradient(ellipse 60% 50% at 50% 60%, #C1121F33 0%, transparent 70%)",
         }}
       />
-      <div className="flex flex-col items-center gap-8">
+      <div className="flex flex-col items-center gap-6 lg:gap-8">
         <div className="contact-label flex items-center gap-3 font-sans font-normal text-xs text-text-muted tracking-widest">
           <span className="w-8 h-px bg-accent"></span>
           <span className="font-sans font-semibold tracking-widest">
@@ -97,19 +97,20 @@ export default function ContactSection() {
           </span>
           <span className="w-8 h-px bg-accent"></span>
         </div>
-        <span className="contact-heading font-sans font-bold text-8xl text-[#F9F6FF] text-center tracking-tight">
+        <span className="contact-heading font-sans font-bold text-4xl sm:text-5xl md:text-6xl lg:text-8xl text-[#F9F6FF] text-center tracking-tight leading-tight">
           Let&apos;s build something
           <br />
           <span className="text-accent italic">great together.</span>
         </span>
-        <span className="contact-subtitle font-heading font-normal text-lg text-text-secondary text-center">
+        <span className="contact-subtitle font-heading font-normal text-base lg:text-lg text-text-secondary text-center">
           Open to full-time roles, freelance projects, and collaborations.
           <br />
           Replies within 24 hours.
         </span>
       </div>
-      <div className="w-2/3 flex gap-8 justify-between">
-        <div className="contact-card w-full flex flex-col gap-5 border border-border hover:border-accent hover:-translate-y-1 hover:shadow-xl shadow-accent px-12 py-6 transition-all duration-300">
+
+      <div className="w-full md:w-4/5 lg:w-2/3 flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-8 justify-between">
+        <div className="contact-card w-full flex flex-col gap-5 border border-border hover:border-accent hover:-translate-y-1 hover:shadow-xl shadow-accent px-6 md:px-8 lg:px-12 py-6 transition-all duration-300">
           <span className="w-full flex justify-between items-center font-normal text-xs text-text-muted tracking-widest">
             <Mail className="text-accent" size={20} />
             <p>EMAIL</p>
@@ -126,7 +127,7 @@ export default function ContactSection() {
             <Copy size={16} />
           </a>
         </div>
-        <div className="contact-card w-full flex flex-col gap-5 border border-border hover:border-accent hover:-translate-y-1 hover:shadow-xl shadow-accent px-12 py-6 transition-all duration-300">
+        <div className="contact-card w-full flex flex-col gap-5 border border-border hover:border-accent hover:-translate-y-1 hover:shadow-xl shadow-accent px-6 md:px-8 lg:px-12 py-6 transition-all duration-300">
           <span className="w-full flex justify-between items-center font-normal text-xs text-text-muted tracking-widest">
             <FaLinkedin className="text-accent" size={20} />
             <p>LINKEDIN</p>
@@ -144,7 +145,7 @@ export default function ContactSection() {
             <ExternalLink size={16} />
           </a>
         </div>
-        <div className="contact-card w-full flex flex-col gap-5 border border-border hover:border-accent hover:-translate-y-1 hover:shadow-lg shadow-accent px-12 py-6 transition-all duration-300">
+        <div className="contact-card w-full flex flex-col gap-5 border border-border hover:border-accent hover:-translate-y-1 hover:shadow-lg shadow-accent px-6 md:px-8 lg:px-12 py-6 transition-all duration-300">
           <span className="w-full flex justify-between items-center font-normal text-xs text-text-muted tracking-widest">
             <FaGithub className="text-accent" size={20} />
             <p>GITHUB</p>
