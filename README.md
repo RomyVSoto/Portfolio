@@ -4,7 +4,7 @@ Personal portfolio showcasing my work as a Full-Stack Developer. Built with a fo
 
 ## Live
 
-[romyvaldez.dev](https://your-portfolio-url.vercel.app)
+[romyvaldez.dev](https://portfolio-beige-zeta-74.vercel.app/)
 
 ## Features
 
