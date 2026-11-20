@@ -4,7 +4,7 @@ Personal portfolio showcasing my work as a Full-Stack Developer. Built with a fo
 
 ## Live
 
-[romyvaldez.dev](https://portfolio-beige-zeta-74.vercel.app/)
+[portfolio-beige-zeta-74.vercel.app](https://portfolio-beige-zeta-74.vercel.app/)
 
 ## Features
 
@@ -14,22 +14,23 @@ Personal portfolio showcasing my work as a Full-Stack Developer. Built with a fo
 - Scroll-triggered animations on every section
 - Header backdrop blur on scroll
 - Breathing red sphere with CSS keyframes
+- Respects `prefers-reduced-motion`: entrance animations and the pinned scroll turn off
 - Responsive design — mobile, tablet, desktop
 
 ## Tech Stack
 
-- **Framework:** Next.js 15 (App Router)
+- **Framework:** Next.js 16 (App Router, Turbopack)
 - **Language:** TypeScript
 - **Styling:** TailwindCSS v4
 - **Animations:** GSAP + ScrollTrigger
 - **Icons:** Lucide React + React Icons
-- **Fonts:** Geist + Inter
+- **Fonts:** Inter, Space Grotesk, JetBrains Mono (`next/font`)
 - **Deployment:** Vercel
 
 ## Sections
 
 - **Hero** — introduction, stack, and CTA buttons
-- **Projects** — 5 selected works with horizontal scroll
+- **Projects** — 5 selected works: pinned horizontal scroll on desktop, swipe carousel on mobile
 - **About** — background and technical skills
 - **Experience** — work history and education timeline
 - **Contact** — email, LinkedIn, and GitHub
@@ -50,14 +51,14 @@ Personal portfolio showcasing my work as a Full-Stack Developer. Built with a fo
    cd portfolio
 ```
 
-2. Install dependencies
+2. Install dependencies (the project uses [pnpm](https://pnpm.io))
 ```bash
-   npm install
+   pnpm install
 ```
 
 3. Run the development server
 ```bash
-   npm run dev
+   pnpm dev
 ```
 
 4. Open [http://localhost:3000](http://localhost:3000)

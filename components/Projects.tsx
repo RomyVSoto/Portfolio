@@ -79,75 +79,109 @@ const Projects = [
   },
 ];
 
-function ProjectCard({ project }: { project: (typeof Projects)[0] }) {
+type Project = (typeof Projects)[number];
+
+const linkClass =
+  "text-xs hover:text-accent-text flex items-center underline underline-offset-6 decoration-text-faint hover:decoration-accent transition-all duration-75";
+
+// One card for both layouts. The mobile carousel only renders below `lg` and the
+// pinned desktop track only renders from `lg` up, so the `lg:` classes switch
+// the card between its stacked (mobile) and split (desktop) layouts.
+function ProjectCard({ project }: { project: Project }) {
   return (
-    <div className="flex flex-col bg-surface border border-border-subtle">
-      <span className="relative w-0 h-px bg-accent" />
-      <div className="flex flex-col py-8 px-6 gap-6">
-        <div className="flex gap-4 items-start">
-          <span className="font-mono font-semibold text-4xl text-text-muted tracking-tight">
-            {project.number}
-          </span>
-          <div className="flex mt-6 flex-col gap-1">
-            <span className="font-sans text-xs text-text-muted tracking-widest">
-              {project.category.toUpperCase()}
+    <article className="group/card h-full flex flex-col bg-surface border border-border-subtle lg:hover:border-border lg:shadow-xl lg:shadow-surface-2 transition-all duration-300">
+      <span
+        aria-hidden
+        className="relative w-0 h-px bg-accent transition-all duration-300 lg:group-hover/card:w-full"
+      />
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+        <div className="w-full flex flex-col py-8 px-6 gap-6 lg:py-20 lg:px-10 lg:gap-10">
+          <div className="flex gap-4 items-start">
+            <span
+              aria-hidden
+              className="font-mono font-semibold text-4xl lg:text-6xl text-text-muted tracking-tight transition-all duration-300 lg:group-hover/card:text-accent-text"
+            >
+              {project.number}
             </span>
-            <span className="font-sans font-bold text-2xl text-text-primary tracking-tight">
-              {project.name}
-            </span>
+            <div className="flex mt-6 lg:mt-10 flex-col gap-1 lg:gap-2">
+              <span className="font-sans text-xs uppercase text-text-muted tracking-widest">
+                {project.category}
+              </span>
+              <h3 className="font-sans font-bold text-2xl lg:text-4xl text-text-primary tracking-tight">
+                {project.name}
+              </h3>
+            </div>
+          </div>
+          <ul className="flex flex-wrap items-center gap-2 lg:max-w-3/4">
+            {project.technologies.map((tech) => (
+              <li
+                key={tech}
+                className="font-sans font-normal text-xs text-text-secondary border border-border py-1 px-2 tracking-wide"
+              >
+                {tech}
+              </li>
+            ))}
+          </ul>
+          <p className="font-sans font-medium text-sm lg:text-base text-text-secondary lg:max-w-3/4">
+            {project.description}
+          </p>
+          <div className="flex gap-5">
+            <a
+              href={project.liveView}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={linkClass}
+            >
+              VIEW LIVE <ExternalLink aria-hidden className="w-4 h-4 ml-1" />
+              <span className="sr-only">: {project.name} (opens in a new tab)</span>
+            </a>
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={linkClass}
+            >
+              GITHUB <ExternalLink aria-hidden className="w-4 h-4 ml-1" />
+              <span className="sr-only">: {project.name} source code (opens in a new tab)</span>
+            </a>
           </div>
         </div>
-        <div className="flex flex-wrap items-center gap-2">
-          {project.technologies.map((tech) => (
-            <span
-              key={tech}
-              className="font-sans font-normal text-xs text-text-secondary border border-border py-1 px-2 tracking-wide"
-            >
-              {tech}
+
+        <div className="w-full flex flex-col px-6 pb-6 lg:py-10 lg:px-10">
+          <div aria-hidden className="bg-surface flex gap-4 border border-border p-2">
+            <span className="flex items-center gap-2">
+              <span className="w-2 h-2 bg-text-faint rounded-full" />
+              <span className="w-2 h-2 bg-text-faint rounded-full" />
+              <span className="w-2 h-2 bg-text-faint rounded-full" />
             </span>
-          ))}
-        </div>
-        <p className="font-sans font-medium text-sm text-text-secondary">
-          {project.description}
-        </p>
-        <div className="flex gap-5">
-          <a
-            href={project.liveView}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs hover:text-accent flex items-center underline underline-offset-6 decoration-text-muted hover:decoration-accent transition-all duration-75"
-          >
-            VIEW LIVE <ExternalLink className="w-4 h-4 ml-1" />
-          </a>
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs hover:text-accent flex items-center underline underline-offset-6 decoration-text-muted hover:decoration-accent transition-all duration-75"
-          >
-            GITHUB <ExternalLink className="w-4 h-4 ml-1" />
-          </a>
+            <span className="font-sans font-normal text-xs text-text-muted transition-all duration-300 lg:group-hover/card:text-accent-text">
+              {project.name.toLowerCase()}.app
+            </span>
+          </div>
+          <Image
+            src={project.image}
+            alt={`Screenshot of ${project.name}`}
+            width={1440}
+            height={813}
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            className="rounded-b-sm w-full h-auto"
+          />
         </div>
       </div>
-      <div className="px-6 pb-6">
-        <div className="bg-surface flex gap-4 border border-border p-2">
-          <span className="flex items-center gap-2 text-text-muted">
-            <span className="w-2 h-2 bg-text-muted rounded-full" />
-            <span className="w-2 h-2 bg-text-muted rounded-full" />
-            <span className="w-2 h-2 bg-text-muted rounded-full" />
-          </span>
-          <span className="font-sans font-normal text-xs text-text-muted">
-            {project.name.toLowerCase()}.app
-          </span>
-        </div>
-        <Image
-          src={project.image}
-          alt={project.name}
-          width={1000}
-          height={1000}
-          className="rounded-b-sm"
-        />
+    </article>
+  );
+}
+
+function SectionHeading({ className = "" }: { className?: string }) {
+  return (
+    <div className={`projects-header flex flex-col gap-4 ${className}`}>
+      <div className="flex items-center gap-3 font-sans text-xs text-text-muted tracking-widest">
+        <span aria-hidden className="w-8 h-px bg-accent" />
+        <span className="font-bold">SELECTED WORK</span>
       </div>
+      <h2 className="font-sans font-bold text-4xl md:text-5xl lg:text-7xl text-white">
+        Personal <span className="text-accent">projects.</span>
+      </h2>
     </div>
   );
 }
@@ -163,15 +197,26 @@ function MobileCarousel() {
     if (!emblaApi) return;
     const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
     emblaApi.on("select", onSelect);
-    return () => { emblaApi.off("select", onSelect); };
+    return () => {
+      emblaApi.off("select", onSelect);
+    };
   }, [emblaApi]);
 
+  const isFirst = selectedIndex === 0;
+  const isLast = selectedIndex === Projects.length - 1;
+
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4" aria-roledescription="carousel" role="region" aria-label="Projects">
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
-          {Projects.map((project) => (
-            <div key={project.name} className="flex-none w-full px-1">
+          {Projects.map((project, i) => (
+            <div
+              key={project.name}
+              className="flex-none w-full px-1"
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${i + 1} of ${Projects.length}`}
+            >
               <ProjectCard project={project} />
             </div>
           ))}
@@ -179,29 +224,40 @@ function MobileCarousel() {
       </div>
 
       <div className="flex items-center justify-between px-2">
-        <div className="flex gap-2">
-          {Projects.map((_, i) => (
+        <div className="flex">
+          {Projects.map((project, i) => (
             <button
-              key={i}
+              key={project.name}
+              type="button"
               onClick={() => emblaApi?.scrollTo(i)}
-              className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                i === selectedIndex ? "bg-accent w-4" : "bg-text-muted"
-              }`}
-              aria-label={`Go to project ${i + 1}`}
-            />
+              className="grid place-items-center h-6 min-w-6 px-1"
+              aria-label={`Go to project ${i + 1}: ${project.name}`}
+              aria-current={i === selectedIndex}
+            >
+              <span
+                aria-hidden
+                className={`block h-1.5 rounded-full transition-all duration-300 ${
+                  i === selectedIndex ? "bg-accent w-4" : "bg-text-muted w-1.5"
+                }`}
+              />
+            </button>
           ))}
         </div>
         <div className="flex gap-2">
           <button
+            type="button"
             onClick={scrollPrev}
-            className="border border-border p-2 hover:border-accent hover:text-accent transition-all duration-300"
+            disabled={isFirst}
+            className="border border-border p-2.5 hover:border-accent hover:text-accent-text transition-all duration-300 disabled:opacity-40 disabled:pointer-events-none"
             aria-label="Previous project"
           >
             <ChevronLeft size={16} />
           </button>
           <button
+            type="button"
             onClick={scrollNext}
-            className="border border-border p-2 hover:border-accent hover:text-accent transition-all duration-300"
+            disabled={isLast}
+            className="border border-border p-2.5 hover:border-accent hover:text-accent-text transition-all duration-300 disabled:opacity-40 disabled:pointer-events-none"
             aria-label="Next project"
           >
             <ChevronRight size={16} />
@@ -218,152 +274,78 @@ export default function ProjectsSection() {
   useEffect(() => {
     const mm = gsap.matchMedia();
 
-    gsap.from(".projects-header", {
-      opacity: 0,
-      y: 40,
-      duration: 0.5,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: ".projects-header",
-        start: "top 85%",
-        once: true,
+    mm.add(
+      {
+        isDesktop: "(min-width: 1024px)",
+        motionOk: "(prefers-reduced-motion: no-preference)",
       },
-    });
+      (context) => {
+        const { isDesktop, motionOk } = context.conditions as {
+          isDesktop: boolean;
+          motionOk: boolean;
+        };
+        if (!motionOk) return;
 
-    mm.add("(min-width: 1024px)", () => {
-      const track = document.querySelector(".projects-track") as HTMLElement;
-      if (!track) return;
+        // Animate only the heading that is visible at this breakpoint.
+        const header = sectionRef.current?.querySelector(
+          isDesktop ? ".projects-desktop .projects-header" : ".projects-mobile .projects-header",
+        );
+        if (header) {
+          gsap.from(header, {
+            opacity: 0,
+            y: 40,
+            duration: 0.5,
+            ease: "power3.out",
+            scrollTrigger: { trigger: header, start: "top 85%", once: true },
+          });
+        }
 
-      ScrollTrigger.refresh();
+        if (!isDesktop) return;
+        const track = sectionRef.current?.querySelector<HTMLElement>(".projects-track");
+        const container = sectionRef.current?.querySelector(".projects-desktop");
+        if (!track || !container) return;
 
-      gsap.to(track, {
-        x: () => -(track.scrollWidth - window.innerWidth),
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".projects-container",
-          start: "top top",
-          end: () => `+=${track.scrollWidth - window.innerWidth}`,
-          scrub: 1,
-          pin: true,
-          pinSpacing: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
-      });
-    });
+        gsap.to(track, {
+          x: () => -(track.scrollWidth - window.innerWidth),
+          ease: "none",
+          scrollTrigger: {
+            trigger: container,
+            start: "top top",
+            end: () => `+=${track.scrollWidth - window.innerWidth}`,
+            scrub: 1,
+            pin: true,
+            // Must stay explicit: ScrollTrigger turns spacing off by default when
+            // the pinned element's parent is a flex container (this section is).
+            pinSpacing: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        });
+      },
+      sectionRef,
+    );
 
-    return () => {
-      mm.revert();
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-    };
+    // Reverts only what this section created.
+    return () => mm.revert();
   }, []);
 
   return (
     <section ref={sectionRef} id="projects" className="flex flex-col gap-14">
-      <div className="lg:hidden flex flex-col gap-6 px-6 md:px-10 py-10">
-        <div className="projects-header flex flex-col gap-4">
-          <div className="flex items-center gap-3 font-sans font-normal text-xs text-text-muted tracking-widest">
-            <span className="w-8 h-px bg-accent" />
-            <span className="font-sans font-bold">SELECTED WORK</span>
-          </div>
-          <span className="flex flex-wrap gap-2 font-sans font-bold text-4xl md:text-5xl text-white">
-            Personal <span className="text-accent">projects.</span>
-          </span>
-        </div>
+      <div className="projects-mobile lg:hidden flex flex-col gap-6 px-6 md:px-10 py-10">
+        <SectionHeading />
         <MobileCarousel />
       </div>
 
-      <div className="hidden lg:block projects-container overflow-hidden z-10 bg-bg py-20">
-        <div className="projects-header flex flex-col gap-4 px-16 py-4">
-          <div className="flex items-center gap-3 font-sans font-normal text-xs text-text-muted tracking-widest">
-            <span className="w-8 h-px bg-accent" />
-            <span className="font-sans font-bold">SELECTED WORK</span>
-          </div>
-          <span className="flex gap-2 font-sans font-bold text-7xl text-white">
-            Personal <p className="text-accent">projects.</p>
-          </span>
-        </div>
-
-        <div className="projects-track flex gap-4">
+      {/* With reduced motion the track is not pinned: it scrolls sideways natively. */}
+      <div className="projects-desktop hidden lg:block overflow-hidden z-10 bg-bg py-20">
+        <SectionHeading className="px-16 py-4" />
+        <ul className="projects-track flex gap-4 motion-reduce:overflow-x-auto motion-reduce:snap-x motion-reduce:snap-mandatory">
           {Projects.map((project) => (
-            <div
-              key={project.name}
-              className="project-card shrink-0 h-full w-screen shadow-xl shadow-surface-2 flex flex-col bg-surface hover:[&_.bar]:w-full hover:[&_.num]:text-accent hover:[&_.image]:shadow-xl hover:[&_.tab-name]:text-accent border border-border-subtle hover:border-border transition-all duration-300"
-            >
-              <span className="bar relative bottom-0 left-0 w-0 h-px bg-accent transition-all duration-300" />
-              <div className="card flex items-center justify-between">
-                <div className="w-full flex flex-col py-20 px-10 gap-10">
-                  <div className="flex gap-4 items-start">
-                    <span className="num font-mono font-semibold text-6xl text-text-muted tracking-tight transition-all duration-300">
-                      {project.number}
-                    </span>
-                    <div className="flex mt-10 flex-col gap-2">
-                      <span className="font-sans text-xs text-text-muted tracking-widest">
-                        {project.category.toUpperCase()}
-                      </span>
-                      <span className="font-sans font-bold text-4xl text-text-primary tracking-tight">
-                        {project.name}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex flex-wrap items-center gap-2 max-w-3/4">
-                    {project.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="font-sans font-normal text-xs text-text-secondary text-center border border-border py-1 px-2 tracking-wide"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="font-sans font-medium text-md text-text-secondary max-w-3/4">
-                    {project.description}
-                  </div>
-                  <div className="flex gap-5">
-                    <a
-                      href={project.liveView}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-transparent hover:bg-transparent text-xs hover:text-accent hover:*:text-accent flex items-center underline underline-offset-6 decoration-text-muted hover:decoration-accent transition-all duration-75 cursor-pointer"
-                    >
-                      VIEW LIVE <ExternalLink className="w-4 h-4 ml-1" />
-                    </a>
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-transparent hover:bg-transparent text-xs hover:text-accent hover:*:text-accent flex items-center underline underline-offset-6 decoration-text-muted hover:decoration-accent transition-all duration-75 cursor-pointer"
-                    >
-                      GITHUB <ExternalLink className="w-4 h-4 ml-1" />
-                    </a>
-                  </div>
-                </div>
-
-                <div className="w-full flex flex-col py-10 px-10">
-                  <div className="bg-surface flex gap-4 border border-border p-2">
-                    <span className="flex items-center gap-2 text-text-muted">
-                      <span className="w-2 h-2 bg-text-muted rounded-full" />
-                      <span className="w-2 h-2 bg-text-muted rounded-full" />
-                      <span className="w-2 h-2 bg-text-muted rounded-full" />
-                    </span>
-                    <span className="tab-name font-sans font-normal text-xs text-text-muted transition-all duration-300">
-                      {project.name.toLowerCase()}.app
-                    </span>
-                  </div>
-                  <div className="image shadow-none shadow-accent transition-all duration-300">
-                    <Image
-                      src={project.image}
-                      alt={project.name}
-                      width={1000}
-                      height={1000}
-                      className="rounded-b-sm"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
+            <li key={project.name} className="shrink-0 w-screen snap-start">
+              <ProjectCard project={project} />
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

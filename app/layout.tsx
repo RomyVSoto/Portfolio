@@ -12,9 +12,29 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk" });
 const jetBrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains-mono" });
 
+const siteUrl = "https://portfolio-beige-zeta-74.vercel.app";
+const description =
+  "Romy Valdez, full-stack developer in Santo Domingo, DR. Scalable web apps with Next.js, TypeScript and Supabase, from concept to deploy.";
+
 export const metadata: Metadata = {
-  title: "Romy Valdez",
-  description: "Romy Valdez Jr. Full Stack Developer",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Romy Valdez — Full-Stack Developer",
+    template: "%s — Romy Valdez",
+  },
+  description,
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "Romy Valdez",
+    title: "Romy Valdez — Full-Stack Developer",
+    description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Romy Valdez — Full-Stack Developer",
+    description,
+  },
 };
 
 export default function RootLayout({
@@ -29,7 +49,7 @@ export default function RootLayout({
         inter.variable,
         spaceGrotesk.variable,
         jetBrainsMono.variable,
-        "scroll-smooth",
+        "motion-safe:scroll-smooth",
         "h-full",
         "antialiased",
       )}

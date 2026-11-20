@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { MoveRight, Menu, X } from "lucide-react";
 import gsap from "gsap";
@@ -16,54 +16,64 @@ const navLinks = [
 ];
 
 export default function Header() {
-  const headerRef = useRef<HTMLElement>(null);
+  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const header = headerRef.current;
-    if (!header) return;
-
-    ScrollTrigger.create({
+    // Only this component's trigger: never kill the other sections' triggers.
+    const trigger = ScrollTrigger.create({
       start: "top -80",
-      onEnter: () => {
-        header.classList.add("backdrop-blur-sm", "bg-bg/80", "border-b", "border-border");
-        header.classList.remove("bg-transparent");
-        gsap.to(header, { borderBottom: "1px solid #2E2E2E", duration: 0.3, ease: "power2.out" });
-      },
-      onLeaveBack: () => {
-        header.classList.remove("backdrop-blur-sm", "bg-bg/80", "border-b", "border-border");
-        header.classList.add("bg-transparent");
-        gsap.to(header, { backgroundColor: "transparent", borderBottom: "1px solid transparent", duration: 0.3, ease: "power2.out" });
-      },
+      end: "max",
+      onToggle: (self) => setScrolled(self.isActive),
     });
-
-    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+    return () => trigger.kill();
   }, []);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
 
   return (
     <>
       <header
-        ref={headerRef}
-        className="fixed top-0 w-full z-50 px-6 md:px-8 py-4 flex justify-between items-center font-heading"
+        className={`fixed top-0 w-full z-50 px-6 md:px-8 py-4 flex justify-between items-center font-heading border-b transition-colors duration-300 ${
+          scrolled
+            ? "backdrop-blur-sm bg-bg/80 border-border"
+            : "bg-transparent border-transparent"
+        }`}
       >
-        <div className="font-mono font-bold text-2xl text-accent tracking-tight">
-          <Link href="#" className="cursor-pointer">
-            RV<span className="text-white">.</span>
-          </Link>
-        </div>
+        <Link
+          href="#"
+          aria-label="Romy Valdez, back to top"
+          className="font-mono font-bold text-2xl text-accent tracking-tight"
+        >
+          RV<span className="text-white">.</span>
+        </Link>
 
-        <div className="hidden md:flex gap-10 font-sans font-medium text-sm text-text-secondary">
-          {navLinks.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className="hover:text-accent transition-colors duration-300 cursor-pointer relative group"
-            >
-              {label}
-              <span className="absolute bottom-0 left-0 w-0 h-px bg-accent group-hover:w-full transition-all duration-300" />
-            </Link>
-          ))}
-        </div>
+        <nav aria-label="Main" className="hidden md:block">
+          <ul className="flex gap-10 font-sans font-medium text-sm text-text-secondary">
+            {navLinks.map(({ href, label }) => (
+              <li key={href}>
+                <Link
+                  href={href}
+                  className="hover:text-accent-text transition-colors duration-300 relative group"
+                >
+                  {label}
+                  <span className="absolute bottom-0 left-0 w-0 h-px bg-accent group-hover:w-full transition-all duration-300" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
         <div className="hidden md:block">
           <Link
@@ -75,21 +85,27 @@ export default function Header() {
         </div>
 
         <button
-          className="md:hidden text-text-primary z-60 p-1"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle navigation menu"
+          type="button"
+          className="md:hidden text-text-primary z-60 p-2 -m-1"
+          onClick={() => setMenuOpen((open) => !open)}
+          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
         >
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </header>
 
       <div
+        id="mobile-menu"
+        inert={!menuOpen}
         className={`md:hidden fixed inset-0 z-55 bg-bg/96 backdrop-blur-md flex flex-col items-center justify-center transition-opacity duration-300 ${
           menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setMenuOpen(false)}
       >
-        <div
+        <nav
+          aria-label="Mobile"
           className="flex flex-col items-center gap-8"
           onClick={(e) => e.stopPropagation()}
         >
@@ -98,7 +114,7 @@ export default function Header() {
               key={href}
               href={href}
               onClick={() => setMenuOpen(false)}
-              className="font-sans font-medium text-2xl text-text-secondary hover:text-accent transition-colors duration-300"
+              className="font-sans font-medium text-2xl text-text-secondary hover:text-accent-text transition-colors duration-300"
             >
               {label}
             </Link>
@@ -110,7 +126,7 @@ export default function Header() {
           >
             Hire Me <MoveRight />
           </Link>
-        </div>
+        </nav>
       </div>
     </>
   );

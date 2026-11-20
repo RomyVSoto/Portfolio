@@ -5,20 +5,21 @@ import Link from "next/link";
 import { ArrowRight, Download } from "lucide-react";
 import { Separator } from "@base-ui/react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
+const stack = ["Next.js", "TypeScript", "Supabase", "Prisma", "tRPC"];
 
 export default function HeroSection() {
-  const titleRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const badgeRef = useRef<HTMLSpanElement>(null);
   const buttonsRef = useRef<HTMLSpanElement>(null);
   const stackRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from([badgeRef.current], {
+    // Entrance motion only for visitors who have not asked for reduced motion.
+    const mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      gsap.from(badgeRef.current, {
         opacity: 0,
         y: 20,
         duration: 0.6,
@@ -60,7 +61,7 @@ export default function HeroSection() {
       });
     });
 
-    return () => ctx.revert();
+    return () => mm.revert();
   }, []);
 
   return (
@@ -69,21 +70,21 @@ export default function HeroSection() {
       className="flex flex-col lg:flex-row items-center justify-between min-h-screen gap-8 lg:gap-16 pt-24 pb-12 lg:py-16 px-6 md:px-10 lg:px-16"
     >
       <div className="w-full lg:w-3/4 flex flex-col gap-6 lg:gap-8">
-        <span className="flex items-center gap-2 font-sans text-xs text-text-secondary tracking-widest">
-          <span
-            ref={badgeRef}
-            className="w-2 h-2 rounded-full bg-green pulse-dot"
-          />
+        <span
+          ref={badgeRef}
+          className="flex items-center gap-2 font-sans text-xs text-text-secondary tracking-widest"
+        >
+          <span aria-hidden className="w-2 h-2 rounded-full bg-green pulse-dot" />
           AVAILABLE FOR WORK — REMOTE / DR
         </span>
-        <span
+        <h1
           ref={titleRef}
           className="flex flex-col font-sans font-black text-6xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tight"
         >
-          <p>Full-Stack</p>
-          <p className="italic text-accent font-extrabold">Developer.</p>
-        </span>
-        <span
+          <span className="block">Full-Stack</span>{" "}
+          <span className="block italic text-accent font-extrabold">Developer.</span>
+        </h1>
+        <p
           ref={subtitleRef}
           className="font-sans font-normal text-base md:text-lg text-text-secondary w-full md:w-3/4"
         >
@@ -93,17 +94,19 @@ export default function HeroSection() {
           </strong>{" "}
           with modern technologies. Based in Santo Domingo, DR — shipping
           production interfaces from concept to deploy.
-        </span>
+        </p>
         <span ref={buttonsRef} className="flex flex-col sm:flex-row gap-3 sm:gap-4">
           <Link
             href="#projects"
-            className="flex justify-center gap-2 bg-accent text-md text-white px-8 py-4 rounded-none hover:bg-accent-hover"
+            className="flex justify-center gap-2 bg-accent text-base text-white px-8 py-4 rounded-none hover:bg-accent-hover transition-colors"
           >
             View My Work <ArrowRight />
           </Link>
           <a
             href="https://path.cv/romyvsoto"
-            className="flex items-center justify-center border border-accent gap-2 px-8 py-2 text-sm text-accent rounded-none hover:bg-accent hover:text-white transition-all cursor-pointer"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center border border-accent gap-2 px-8 py-2 text-sm text-accent-text rounded-none hover:bg-accent hover:text-white transition-all"
           >
             <Download /> Download CV
           </a>
@@ -112,26 +115,25 @@ export default function HeroSection() {
           ref={stackRef}
           className="flex flex-wrap gap-3 sm:gap-4 items-center text-text-secondary"
         >
-          <p className="text-text-muted text-xs tracking-widest">STACK</p>
+          <span className="text-text-muted text-xs tracking-widest">STACK</span>
           <Separator
             orientation="vertical"
             className="bg-text-primary/10 w-px h-6"
           />
-          <span className="flex flex-wrap items-center gap-2 sm:gap-3 font-sans text-sm">
-            <p>Next.js</p>
-            <span className="rounded-full w-0.5 h-0.5 bg-text-secondary" />
-            <p>TypeScript</p>
-            <span className="rounded-full w-0.5 h-0.5 bg-text-secondary" />
-            <p>Supabase</p>
-            <span className="rounded-full w-0.5 h-0.5 bg-text-secondary" />
-            <p>Prisma</p>
-            <span className="rounded-full w-0.5 h-0.5 bg-text-secondary" />
-            <p>tRPC</p>
-          </span>
+          <ul className="flex flex-wrap items-center gap-2 sm:gap-3 font-sans text-sm">
+            {stack.map((tech, i) => (
+              <li key={tech} className="flex items-center gap-2 sm:gap-3">
+                {i > 0 && (
+                  <span aria-hidden className="rounded-full w-0.5 h-0.5 bg-text-secondary" />
+                )}
+                {tech}
+              </li>
+            ))}
+          </ul>
         </span>
       </div>
 
-      <div className="hidden lg:flex lg:w-2/4 h-120 relative border border-border flex-col justify-between py-4 px-6">
+      <div aria-hidden className="hidden lg:flex lg:w-2/4 h-120 relative overflow-hidden border border-border flex-col justify-between py-4 px-6">
         <span className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-accent" />
         <span className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-accent" />
         <span className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-accent" />
@@ -148,12 +150,12 @@ export default function HeroSection() {
         </div>
 
         <div className="flex items-center justify-center flex-1">
-          <div className="absolute w-80 h-80 rounded-full border border-border opacity-50" />
+          <div className="absolute w-[min(20rem,95%)] aspect-square rounded-full border border-border opacity-50" />
           <div
-            className="relative w-64 h-64 rounded-full breathe"
+            className="relative w-[min(16rem,75%)] aspect-square shrink-0 rounded-full breathe"
             style={{
-              background: "radial-gradient(circle at 35% 35%, #E5192A, #8B0000)",
-              boxShadow: "0 0 80px 30px #C1121F44",
+              background:
+                "radial-gradient(circle at 35% 35%, var(--color-accent-hover), var(--color-accent-deep))",
             }}
           />
         </div>
