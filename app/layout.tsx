@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
@@ -45,16 +44,20 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn(
-        inter.variable,
-        spaceGrotesk.variable,
-        jetBrainsMono.variable,
-        "motion-safe:scroll-smooth",
-        "h-full",
-        "antialiased",
-      )}
+      suppressHydrationWarning
+      className={`${inter.variable} ${spaceGrotesk.variable} ${jetBrainsMono.variable} motion-safe:scroll-smooth h-full antialiased`}
     >
+      <head>
+        {/* Marks that JS runs, before paint, so the hero can wait for its entrance (see globals.css). */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+      </head>
       <body className="min-h-full flex flex-col bg-bg">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:bg-accent focus:text-text-primary focus:px-4 focus:py-2"
+        >
+          Skip to content
+        </a>
         <CustomCursor />
         <Header />
         {children}

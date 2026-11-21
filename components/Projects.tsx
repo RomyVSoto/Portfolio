@@ -179,7 +179,7 @@ function SectionHeading({ className = "" }: { className?: string }) {
         <span aria-hidden className="w-8 h-px bg-accent" />
         <span className="font-bold">SELECTED WORK</span>
       </div>
-      <h2 className="font-sans font-bold text-4xl md:text-5xl lg:text-7xl text-white">
+      <h2 className="font-sans font-bold text-4xl md:text-5xl lg:text-7xl text-text-primary">
         Personal <span className="text-accent">projects.</span>
       </h2>
     </div>
@@ -216,6 +216,8 @@ function MobileCarousel() {
               role="group"
               aria-roledescription="slide"
               aria-label={`${i + 1} of ${Projects.length}`}
+              // Off-screen slides stay out of the Tab order, or focus drags Embla out of place.
+              inert={i !== selectedIndex}
             >
               <ProjectCard project={project} />
             </div>
@@ -305,13 +307,17 @@ export default function ProjectsSection() {
         const container = sectionRef.current?.querySelector(".projects-desktop");
         if (!track || !container) return;
 
-        gsap.to(track, {
-          x: () => -(track.scrollWidth - window.innerWidth),
+        // clientWidth, not innerWidth: innerWidth includes the scrollbar, which
+        // left the last card 15px under it on Windows.
+        const distance = () => track.scrollWidth - track.clientWidth;
+
+        const tween = gsap.to(track, {
+          x: () => -distance(),
           ease: "none",
           scrollTrigger: {
             trigger: container,
             start: "top top",
-            end: () => `+=${track.scrollWidth - window.innerWidth}`,
+            end: () => `+=${distance()}`,
             scrub: 1,
             pin: true,
             // Must stay explicit: ScrollTrigger turns spacing off by default when
@@ -321,6 +327,23 @@ export default function ProjectsSection() {
             invalidateOnRefresh: true,
           },
         });
+
+        // Keyboard users: when Tab lands in a card, scroll the page to where the
+        // pin shows that card, instead of letting the browser slide the track.
+        const onFocusIn = (e: FocusEvent) => {
+          const card = (e.target as Element).closest("li");
+          const st = tween.scrollTrigger;
+          if (!card || !st) return;
+          const progress = gsap.utils.clamp(0, 1, (card.offsetLeft - track.offsetLeft) / distance());
+          // Next task: the browser's own focus scroll starts right after this event.
+          // It is smooth (scroll-behavior on <html>), and only another smooth
+          // scroll replaces it; an instant one gets overridden as it continues.
+          setTimeout(() =>
+            window.scrollTo({ top: st.start + progress * (st.end - st.start), behavior: "smooth" }),
+          );
+        };
+        track.addEventListener("focusin", onFocusIn);
+        return () => track.removeEventListener("focusin", onFocusIn);
       },
       sectionRef,
     );
@@ -337,11 +360,12 @@ export default function ProjectsSection() {
       </div>
 
       {/* With reduced motion the track is not pinned: it scrolls sideways natively. */}
-      <div className="projects-desktop hidden lg:block overflow-hidden z-10 bg-bg py-20">
+      {/* overflow-clip, not hidden: a clipped box cannot be scrolled by focus. */}
+      <div className="projects-desktop hidden lg:block overflow-clip z-10 bg-bg py-20">
         <SectionHeading className="px-16 py-4" />
         <ul className="projects-track flex gap-4 motion-reduce:overflow-x-auto motion-reduce:snap-x motion-reduce:snap-mandatory">
           {Projects.map((project) => (
-            <li key={project.name} className="shrink-0 w-screen snap-start">
+            <li key={project.name} className="shrink-0 w-full snap-start">
               <ProjectCard project={project} />
             </li>
           ))}

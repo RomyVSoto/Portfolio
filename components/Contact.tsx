@@ -4,11 +4,37 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
-import { Separator } from "@base-ui/react";
 import { ExternalLink, Mail, ArrowUpRight } from "lucide-react";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const channels = [
+  {
+    label: "EMAIL",
+    value: "romyvaldez@gmail.com",
+    href: "mailto:romyvaldez@gmail.com",
+    action: "SEND EMAIL",
+    Icon: Mail,
+    external: false,
+  },
+  {
+    label: "LINKEDIN",
+    value: "linkedin.com/in/romyvaldez",
+    href: "https://www.linkedin.com/in/romyvaldez/",
+    action: "VISIT",
+    Icon: FaLinkedin,
+    external: true,
+  },
+  {
+    label: "GITHUB",
+    value: "github.com/RomyVSoto",
+    href: "https://github.com/RomyVSoto",
+    action: "VISIT",
+    Icon: FaGithub,
+    external: true,
+  },
+];
 
 export default function ContactSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -113,63 +139,34 @@ export default function ContactSection() {
         </p>
       </div>
 
-      <div className="w-full md:w-4/5 lg:w-2/3 flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-8 justify-between">
-        <div className="contact-card w-full flex flex-col gap-5 border border-border hover:border-accent hover:-translate-y-1 hover:shadow-xl shadow-accent px-6 md:px-8 lg:px-12 py-6 transition-all duration-300">
-          <span className="w-full flex justify-between items-center font-normal text-xs text-text-muted tracking-widest">
-            <Mail aria-hidden className="text-accent-text" size={20} />
-            <span>EMAIL</span>
-          </span>
-          <span className="font-mono font-normal text-sm text-text-primary">
-            romyvaldez@gmail.com
-          </span>
-          <Separator className="border border-muted" />
-          <a
-            href="mailto:romyvaldez@gmail.com"
-            className="flex justify-between font-sans font-normal text-xs text-text-secondary tracking-widest cursor-pointer hover:text-accent-text transition-all duration-300"
-          >
-            <span>SEND EMAIL</span>
-            <ArrowUpRight aria-hidden size={16} />
-          </a>
-        </div>
-        <div className="contact-card w-full flex flex-col gap-5 border border-border hover:border-accent hover:-translate-y-1 hover:shadow-xl shadow-accent px-6 md:px-8 lg:px-12 py-6 transition-all duration-300">
-          <span className="w-full flex justify-between items-center font-normal text-xs text-text-muted tracking-widest">
-            <FaLinkedin aria-hidden className="text-accent-text" size={20} />
-            <span>LINKEDIN</span>
-          </span>
-          <span className="font-mono font-normal text-sm text-text-primary">
-            linkedin.com/in/romyvaldez
-          </span>
-          <Separator className="border border-muted" />
-          <a
-            href="https://www.linkedin.com/in/romyvaldez/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex justify-between font-sans font-normal text-xs text-text-secondary tracking-widest cursor-pointer hover:text-accent-text transition-all duration-300"
-          >
-            <span>VISIT</span>
-            <ExternalLink aria-hidden size={16} />
-          </a>
-        </div>
-        <div className="contact-card w-full flex flex-col gap-5 border border-border hover:border-accent hover:-translate-y-1 hover:shadow-lg shadow-accent px-6 md:px-8 lg:px-12 py-6 transition-all duration-300">
-          <span className="w-full flex justify-between items-center font-normal text-xs text-text-muted tracking-widest">
-            <FaGithub aria-hidden className="text-accent-text" size={20} />
-            <span>GITHUB</span>
-          </span>
-          <span className="font-mono font-normal text-sm text-text-primary">
-            github.com/RomyVSoto
-          </span>
-          <Separator className="border border-muted" />
-          <a
-            href="https://github.com/RomyVSoto"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex justify-between font-sans font-normal text-xs text-text-secondary tracking-widest cursor-pointer hover:text-accent-text transition-all duration-300"
-          >
-            <span>VISIT</span>
-            <ExternalLink aria-hidden size={16} />
-          </a>
-        </div>
-      </div>
+      <ul className="w-full md:w-4/5 lg:w-2/3 flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-8 justify-between">
+        {channels.map(({ label, value, href, action, Icon, external }) => (
+          <li key={label} className="contact-card w-full flex">
+            {/* The whole card is the link, so the hover lift matches what is clickable. */}
+            <a
+              href={href}
+              {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+              className="group w-full flex flex-col gap-5 border border-border hover:border-accent hover:-translate-y-1 hover:shadow-xl shadow-accent/20 px-6 md:px-8 lg:px-12 py-6 transition-all duration-300"
+            >
+              <span className="w-full flex justify-between items-center text-xs text-text-muted tracking-widest">
+                <Icon aria-hidden className="text-accent-text" size={20} />
+                <span>{label}</span>
+              </span>
+              <span className="font-mono text-sm text-text-primary break-all">{value}</span>
+              <span aria-hidden className="h-px bg-border" />
+              <span className="flex justify-between text-xs text-text-secondary tracking-widest group-hover:text-accent-text transition-colors duration-300">
+                <span>{action}</span>
+                {external ? (
+                  <ExternalLink aria-hidden size={16} />
+                ) : (
+                  <ArrowUpRight aria-hidden size={16} />
+                )}
+              </span>
+              {external && <span className="sr-only"> (opens in a new tab)</span>}
+            </a>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

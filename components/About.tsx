@@ -85,7 +85,7 @@ export default function About() {
           <span aria-hidden className="w-8 h-px bg-accent"></span>
           <span className="font-bold">ABOUT ME</span>
         </div>
-        <h2 className="font-sans font-bold text-3xl md:text-4xl lg:text-5xl text-white">
+        <h2 className="font-sans font-bold text-3xl md:text-4xl lg:text-5xl text-text-primary">
           Passionate about <span className="text-accent">clean code</span> and
           great UX.
         </h2>

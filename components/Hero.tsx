@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import Link from "next/link";
-import { ArrowRight, Download } from "lucide-react";
+import { ArrowRight, FileText } from "lucide-react";
 import { Separator } from "@base-ui/react";
 import { gsap } from "gsap";
 
@@ -17,48 +17,22 @@ export default function HeroSection() {
 
   useEffect(() => {
     // Entrance motion only for visitors who have not asked for reduced motion.
+    // Every target carries `data-reveal`, which keeps it hidden until this runs.
     const mm = gsap.matchMedia();
     mm.add("(prefers-reduced-motion: no-preference)", () => {
-      gsap.from(badgeRef.current, {
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-        ease: "power3.out",
-        delay: 0.2,
-      });
+      const tl = gsap.timeline({ defaults: { duration: 0.6, ease: "power3.out" } });
+      const rise = (y: number) => [{ autoAlpha: 0, y }, { autoAlpha: 1, y: 0 }] as const;
 
-      gsap.from(titleRef.current?.children ?? [], {
-        opacity: 0,
-        y: 60,
-        duration: 0.8,
-        ease: "power4.out",
-        stagger: 0.15,
-        delay: 0.4,
-      });
-
-      gsap.from(subtitleRef.current, {
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-        ease: "power3.out",
-        delay: 0.8,
-      });
-
-      gsap.from(buttonsRef.current, {
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-        ease: "power3.out",
-        delay: 1,
-      });
-
-      gsap.from(stackRef.current, {
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-        ease: "power3.out",
-        delay: 1.2,
-      });
+      tl.fromTo(badgeRef.current, ...rise(20), 0.2)
+        .fromTo(
+          titleRef.current?.children ?? [],
+          rise(60)[0],
+          { ...rise(60)[1], duration: 0.8, ease: "power4.out", stagger: 0.15 },
+          0.4,
+        )
+        .fromTo(subtitleRef.current, ...rise(20), 0.9)
+        .fromTo(buttonsRef.current, ...rise(20), 1.05)
+        .fromTo(stackRef.current, ...rise(20), 1.2);
     });
 
     return () => mm.revert();
@@ -69,9 +43,10 @@ export default function HeroSection() {
       id="hero"
       className="flex flex-col lg:flex-row items-center justify-between min-h-screen gap-8 lg:gap-16 pt-24 pb-12 lg:py-16 px-6 md:px-10 lg:px-16"
     >
-      <div className="w-full lg:w-3/4 flex flex-col gap-6 lg:gap-8">
+      <div className="w-full xl:flex-1 flex flex-col gap-6 lg:gap-8 min-w-0">
         <span
           ref={badgeRef}
+          data-reveal
           className="flex items-center gap-2 font-sans text-xs text-text-secondary tracking-widest"
         >
           <span aria-hidden className="w-2 h-2 rounded-full bg-green pulse-dot" />
@@ -81,11 +56,15 @@ export default function HeroSection() {
           ref={titleRef}
           className="flex flex-col font-sans font-black text-6xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tight"
         >
-          <span className="block">Full-Stack</span>{" "}
-          <span className="block italic text-accent font-extrabold">Developer.</span>
+          <span data-reveal className="block font-heading font-semibold text-2xl sm:text-3xl md:text-4xl tracking-normal text-text-primary mb-3 md:mb-4">
+            Romy Valdez
+          </span>{" "}
+          <span data-reveal className="block">Full-Stack</span>{" "}
+          <span data-reveal className="block italic text-accent font-extrabold">Developer.</span>
         </h1>
         <p
           ref={subtitleRef}
+          data-reveal
           className="font-sans font-normal text-base md:text-lg text-text-secondary w-full md:w-3/4"
         >
           Building{" "}
@@ -95,10 +74,11 @@ export default function HeroSection() {
           with modern technologies. Based in Santo Domingo, DR — shipping
           production interfaces from concept to deploy.
         </p>
-        <span ref={buttonsRef} className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+        <span ref={buttonsRef}
+          data-reveal className="flex flex-col sm:flex-row gap-3 sm:gap-4">
           <Link
             href="#projects"
-            className="flex justify-center gap-2 bg-accent text-base text-white px-8 py-4 rounded-none hover:bg-accent-hover transition-colors"
+            className="flex justify-center gap-2 bg-accent text-base text-text-primary px-8 py-4 rounded-none hover:bg-accent-hover transition-colors"
           >
             View My Work <ArrowRight />
           </Link>
@@ -106,13 +86,15 @@ export default function HeroSection() {
             href="https://path.cv/romyvsoto"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center border border-accent gap-2 px-8 py-2 text-sm text-accent-text rounded-none hover:bg-accent hover:text-white transition-all"
+            className="flex items-center justify-center border border-accent gap-2 px-8 py-2 text-sm text-accent-text rounded-none hover:bg-accent hover:text-text-primary transition-all"
           >
-            <Download /> Download CV
+            <FileText aria-hidden /> View CV
+            <span className="sr-only"> (opens in a new tab)</span>
           </a>
         </span>
         <span
           ref={stackRef}
+          data-reveal
           className="flex flex-wrap gap-3 sm:gap-4 items-center text-text-secondary"
         >
           <span className="text-text-muted text-xs tracking-widest">STACK</span>
@@ -133,7 +115,7 @@ export default function HeroSection() {
         </span>
       </div>
 
-      <div aria-hidden className="hidden lg:flex lg:w-2/4 h-120 relative overflow-hidden border border-border flex-col justify-between py-4 px-6">
+      <div aria-hidden className="hidden xl:flex xl:w-md shrink-0 h-120 relative overflow-hidden border border-border flex-col justify-between py-4 px-6">
         <span className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-accent" />
         <span className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-accent" />
         <span className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-accent" />

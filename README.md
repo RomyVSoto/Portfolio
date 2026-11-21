@@ -9,7 +9,7 @@ Personal portfolio showcasing my work as a Full-Stack Developer. Built with a fo
 ## Features
 
 - Horizontal scroll carousel for projects with GSAP ScrollTrigger
-- Custom animated cursor with magnetic hover effect
+- Custom animated cursor that grows over links and buttons (mouse only)
 - Hero text reveal animation on load
 - Scroll-triggered animations on every section
 - Header backdrop blur on scroll

@@ -56,7 +56,7 @@ export default function Header() {
           aria-label="Romy Valdez, back to top"
           className="font-mono font-bold text-2xl text-accent tracking-tight"
         >
-          RV<span className="text-white">.</span>
+          RV<span className="text-text-primary">.</span>
         </Link>
 
         <nav aria-label="Main" className="hidden md:block">

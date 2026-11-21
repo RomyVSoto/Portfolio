@@ -10,7 +10,6 @@ const Experience = [
     title: "Grupo Humano",
     position: "Programmer Analyst II",
     period: "2026 - Present",
-    // TODO: describe the role (one or two sentences, like the entries below).
     description: "",
   },
   {
@@ -45,8 +44,7 @@ const Education = [
       "Coursework spans data structures, modern web architectures, database design, and software engineering practices.",
   },
   {
-    // TODO: add the high school's name; it repeated the degree before.
-    institution: "",
+    institution: "Instituto Técnico Salesiano",
     degree: "Technical High School Diploma in Programming",
     period: "2019 - 2022",
     description:
@@ -121,7 +119,7 @@ export default function ExperienceSection() {
           <span aria-hidden className="w-8 h-px bg-accent"></span>
           <span className="font-bold">EXPERIENCE</span>
         </div>
-        <h2 className="font-sans font-bold text-4xl md:text-5xl lg:text-7xl text-white">
+        <h2 className="font-sans font-bold text-4xl md:text-5xl lg:text-7xl text-text-primary">
           Where I&apos;ve <span className="text-accent">worked.</span>
         </h2>
       </div>
