@@ -7,9 +7,16 @@ import { Separator } from "@base-ui/react";
 
 const Experience = [
   {
+    title: "Grupo Humano",
+    position: "Programmer Analyst II",
+    period: "2026 - Present",
+    // TODO: describe the role (one or two sentences, like the entries below).
+    description: "",
+  },
+  {
     title: "Claro Dominicana",
     position: "Network Operations Center",
-    period: "2025 - Present",
+    period: "2025 - 2026",
     description:
       "Real-time monitoring of the telecommunications network and initial fault diagnosis. Reception, classification, and recording of network alarms and incidents.",
   },
@@ -123,7 +130,7 @@ export default function ExperienceSection() {
         <div aria-hidden className="absolute left-0 top-0 bottom-0 w-px bg-border" />
 
         {Experience.map((exp) => (
-          <div key={exp.position} className="experience-entry">
+          <div key={`${exp.title}-${exp.position}`} className="experience-entry">
             <div className="group flex gap-4 md:gap-10 py-8 lg:py-10 hover:bg-surface transition-all duration-300">
               <div className="relative flex gap-2 md:gap-4 items-start -translate-x-1.5 shrink-0">
                 <div className="flex justify-center z-10 pt-1">
@@ -140,9 +147,11 @@ export default function ExperienceSection() {
                 <h3 className="font-heading font-bold text-xl lg:text-2xl text-text-primary">
                   {exp.position}
                 </h3>
-                <p className="text-text-secondary text-sm leading-relaxed">
-                  {exp.description}
-                </p>
+                {exp.description && (
+                  <p className="text-text-secondary text-sm leading-relaxed">
+                    {exp.description}
+                  </p>
+                )}
               </div>
             </div>
             <Separator className="bg-border h-px mx-4 lg:mx-8" />
