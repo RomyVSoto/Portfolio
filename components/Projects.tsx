@@ -5,6 +5,8 @@ import Image from "next/image";
 import { ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import { MOTION_OK, revealHeading } from "@/lib/motion";
 import useEmblaCarousel from "embla-carousel-react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -164,7 +166,7 @@ function ProjectCard({ project }: { project: Project }) {
             width={1440}
             height={813}
             sizes="(min-width: 1024px) 50vw, 100vw"
-            className="rounded-b-sm w-full h-auto"
+            className="project-shot rounded-b-sm w-full h-auto"
           />
         </div>
       </div>
@@ -172,16 +174,36 @@ function ProjectCard({ project }: { project: Project }) {
   );
 }
 
-function SectionHeading({ className = "" }: { className?: string }) {
+function SectionHeading({
+  className = "",
+  withProgress = false,
+}: {
+  className?: string;
+  withProgress?: boolean;
+}) {
   return (
-    <div className={`projects-header flex flex-col gap-4 ${className}`}>
-      <div className="flex items-center gap-3 font-sans text-xs text-text-muted tracking-widest">
-        <span aria-hidden className="w-8 h-px bg-accent" />
-        <span className="font-bold">SELECTED WORK</span>
+    <div className={`projects-header flex items-end justify-between gap-8 ${className}`}>
+      <div className="flex flex-col gap-4">
+        <div className="flex items-center gap-3 font-sans text-xs text-text-muted tracking-widest">
+          <span aria-hidden className="w-8 h-px bg-accent" />
+          <span className="font-bold">SELECTED WORK</span>
+        </div>
+        <h2 className="font-sans font-bold text-4xl md:text-5xl lg:text-7xl text-text-primary">
+          Personal <span className="text-accent">projects.</span>
+        </h2>
       </div>
-      <h2 className="font-sans font-bold text-4xl md:text-5xl lg:text-7xl text-text-primary">
-        Personal <span className="text-accent">projects.</span>
-      </h2>
+      {withProgress && (
+        // Follows the pinned scroll: which card is on screen, and how far along.
+        <div aria-hidden className="flex flex-col items-end gap-3 pb-2 font-mono text-sm text-text-muted">
+          <span>
+            <span className="projects-counter text-text-primary">01</span> /{" "}
+            {String(Projects.length).padStart(2, "0")}
+          </span>
+          <span className="block w-40 h-px bg-border">
+            <span className="projects-bar block h-full bg-accent origin-left scale-x-0" />
+          </span>
+        </div>
+      )}
     </div>
   );
 }
@@ -273,13 +295,13 @@ function MobileCarousel() {
 export default function ProjectsSection() {
   const sectionRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
+  useGSAP(() => {
     const mm = gsap.matchMedia();
 
     mm.add(
       {
         isDesktop: "(min-width: 1024px)",
-        motionOk: "(prefers-reduced-motion: no-preference)",
+        motionOk: MOTION_OK,
       },
       (context) => {
         const { isDesktop, motionOk } = context.conditions as {
@@ -288,24 +310,19 @@ export default function ProjectsSection() {
         };
         if (!motionOk) return;
 
-        // Animate only the heading that is visible at this breakpoint.
-        const header = sectionRef.current?.querySelector(
-          isDesktop ? ".projects-desktop .projects-header" : ".projects-mobile .projects-header",
+        // Only the heading that is visible at this breakpoint.
+        revealHeading(
+          sectionRef.current?.querySelector(
+            isDesktop ? ".projects-desktop h2" : ".projects-mobile h2",
+          ) ?? null,
         );
-        if (header) {
-          gsap.from(header, {
-            opacity: 0,
-            y: 40,
-            duration: 0.5,
-            ease: "power3.out",
-            scrollTrigger: { trigger: header, start: "top 85%", once: true },
-          });
-        }
 
         if (!isDesktop) return;
         const track = sectionRef.current?.querySelector<HTMLElement>(".projects-track");
         const container = sectionRef.current?.querySelector(".projects-desktop");
         if (!track || !container) return;
+        const counter = container.querySelector(".projects-counter");
+        const bar = container.querySelector(".projects-bar");
 
         // clientWidth, not innerWidth: innerWidth includes the scrollbar, which
         // left the last card 15px under it on Windows.
@@ -325,7 +342,32 @@ export default function ProjectsSection() {
             pinSpacing: true,
             anticipatePin: 1,
             invalidateOnRefresh: true,
+            onUpdate: (self) => {
+              const index = Math.round(self.progress * (Projects.length - 1)) + 1;
+              if (counter) counter.textContent = String(index).padStart(2, "0");
+              if (bar) gsap.set(bar, { scaleX: self.progress });
+            },
           },
+        });
+
+        // Each screenshot wipes in from the right as its card slides into view.
+        // containerAnimation ties these triggers to the horizontal tween, not page scroll.
+        gsap.utils.toArray<HTMLElement>(".project-shot", track).forEach((shot) => {
+          gsap.fromTo(
+            shot,
+            { clipPath: "inset(0% 0% 0% 100%)" },
+            {
+              clipPath: "inset(0% 0% 0% 0%)",
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: shot,
+                containerAnimation: tween,
+                start: "left 95%",
+                end: "left 45%",
+                scrub: true,
+              },
+            },
+          );
         });
 
         // Keyboard users: when Tab lands in a card, scroll the page to where the
@@ -350,7 +392,7 @@ export default function ProjectsSection() {
 
     // Reverts only what this section created.
     return () => mm.revert();
-  }, []);
+  });
 
   return (
     <section ref={sectionRef} id="projects" className="flex flex-col gap-14">
@@ -362,7 +404,7 @@ export default function ProjectsSection() {
       {/* With reduced motion the track is not pinned: it scrolls sideways natively. */}
       {/* overflow-clip, not hidden: a clipped box cannot be scrolled by focus. */}
       <div className="projects-desktop hidden lg:block overflow-clip z-10 bg-bg py-20">
-        <SectionHeading className="px-16 py-4" />
+        <SectionHeading className="px-16 py-4" withProgress />
         <ul className="projects-track flex gap-4 motion-reduce:overflow-x-auto motion-reduce:snap-x motion-reduce:snap-mandatory">
           {Projects.map((project) => (
             <li key={project.name} className="shrink-0 w-full snap-start">

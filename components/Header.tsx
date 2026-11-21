@@ -5,6 +5,7 @@ import Link from "next/link";
 import { MoveRight, Menu, X } from "lucide-react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { useMagnetic } from "@/lib/motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,6 +19,7 @@ const navLinks = [
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const hireRef = useMagnetic<HTMLAnchorElement>();
 
   useEffect(() => {
     // Only this component's trigger: never kill the other sections' triggers.
@@ -77,6 +79,7 @@ export default function Header() {
 
         <div className="hidden md:block">
           <Link
+            ref={hireRef}
             href="#contact"
             className="font-sans font-semibold flex items-center gap-2 bg-accent hover:bg-accent-hover transition-colors duration-300 px-3 py-2 rounded-xs"
           >

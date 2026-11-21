@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
+import { useRef } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 import { Diamond } from "lucide-react";
-
-gsap.registerPlugin(ScrollTrigger);
+import { MOTION_OK, revealHeading } from "@/lib/motion";
 
 const skillGroups = [
   {
@@ -36,43 +35,37 @@ const skillGroups = [
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    const mm = gsap.matchMedia();
-    mm.add(
-      "(prefers-reduced-motion: no-preference)",
-      () => {
-        gsap.from(".about-left > *", {
-          opacity: 0,
-          y: 40,
-          duration: 0.7,
-          ease: "power3.out",
-          stagger: 0.15,
-          scrollTrigger: {
-            trigger: ".about-left",
-            start: "top 85%",
-            once: true,
-          },
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add(MOTION_OK, () => {
+        revealHeading(sectionRef.current?.querySelector("h2") ?? null);
+
+        gsap.from(".about-copy > *", {
+          autoAlpha: 0,
+          y: 16,
+          duration: 0.9,
+          ease: "expo.out",
+          stagger: 0.12,
+          scrollTrigger: { trigger: ".about-copy", start: "top 85%", once: true },
         });
 
+        // Chips land one after another, a small cascade per group.
         gsap.utils.toArray<HTMLElement>(".about-skill-group").forEach((group) => {
-          gsap.from(group, {
-            opacity: 0,
-            y: 30,
+          gsap.from(group.querySelectorAll("h3, li"), {
+            autoAlpha: 0,
+            y: 10,
             duration: 0.6,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: group,
-              start: "top 85%",
-              once: true,
-            },
+            ease: "expo.out",
+            stagger: 0.035,
+            scrollTrigger: { trigger: group, start: "top 88%", once: true },
           });
         });
-      },
-      sectionRef,
-    );
-
-    return () => mm.revert();
-  }, []);
+      });
+      return () => mm.revert();
+    },
+    { scope: sectionRef },
+  );
 
   return (
     <section
@@ -80,7 +73,7 @@ export default function About() {
       id="about"
       className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10 lg:gap-14 py-10 px-6 md:px-10 lg:px-16"
     >
-      <div className="about-left w-full lg:w-1/2 flex flex-col gap-6">
+      <div className="w-full lg:w-1/2 flex flex-col gap-6">
         <div className="flex items-center gap-3 font-sans text-xs text-text-muted tracking-widest">
           <span aria-hidden className="w-8 h-px bg-accent"></span>
           <span className="font-bold">ABOUT ME</span>
@@ -89,7 +82,7 @@ export default function About() {
           Passionate about <span className="text-accent">clean code</span> and
           great UX.
         </h2>
-        <div className="flex flex-col gap-4 font-sans font-normal text-base md:text-lg text-text-secondary max-w-[65ch]">
+        <div className="about-copy flex flex-col gap-4 font-sans font-normal text-base md:text-lg text-text-secondary max-w-[65ch]">
           <p>
             I&apos;m a full-stack developer based in Santo Domingo. My focus is
             building fast, accessible, well-architected web applications —

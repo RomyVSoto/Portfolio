@@ -117,3 +117,12 @@
 html {
   scrollbar-color: var(--color-border) var(--color-bg);
 }
+
+/* SplitText line masks clip at the line box; give descenders (the "p" in
+   "Developer.") and the italic overhang room without moving the layout. */
+.split-line-mask {
+  padding-block: 0.12em;
+  margin-block: -0.12em;
+  padding-inline-end: 0.12em;
+  margin-inline-end: -0.12em;
+}

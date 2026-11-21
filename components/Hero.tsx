@@ -1,45 +1,70 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import { ArrowRight, FileText } from "lucide-react";
 import { Separator } from "@base-ui/react";
 import { gsap } from "gsap";
+import { SplitText } from "gsap/SplitText";
+import { useGSAP } from "@gsap/react";
+import { useMagnetic } from "@/lib/motion";
+
+gsap.registerPlugin(useGSAP, SplitText);
 
 const stack = ["Next.js", "TypeScript", "Supabase", "Prisma", "tRPC"];
 
 export default function HeroSection() {
+  const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const badgeRef = useRef<HTMLSpanElement>(null);
   const buttonsRef = useRef<HTMLSpanElement>(null);
   const stackRef = useRef<HTMLSpanElement>(null);
+  const primaryRef = useMagnetic<HTMLAnchorElement>();
 
-  useEffect(() => {
-    // Entrance motion only for visitors who have not asked for reduced motion.
-    // Every target carries `data-reveal`, which keeps it hidden until this runs.
-    const mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      const tl = gsap.timeline({ defaults: { duration: 0.6, ease: "power3.out" } });
-      const rise = (y: number) => [{ autoAlpha: 0, y }, { autoAlpha: 1, y: 0 }] as const;
+  useGSAP(
+    () => {
+      // Entrance motion only for visitors who have not asked for reduced motion.
+      // Every target carries `data-reveal`, which keeps it hidden until this runs.
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const title = titleRef.current;
+        if (!title) return;
 
-      tl.fromTo(badgeRef.current, ...rise(20), 0.2)
-        .fromTo(
-          titleRef.current?.children ?? [],
-          rise(60)[0],
-          { ...rise(60)[1], duration: 0.8, ease: "power4.out", stagger: 0.15 },
-          0.4,
-        )
-        .fromTo(subtitleRef.current, ...rise(20), 0.9)
-        .fromTo(buttonsRef.current, ...rise(20), 1.05)
-        .fromTo(stackRef.current, ...rise(20), 1.2);
-    });
+        gsap.fromTo(badgeRef.current, { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.8, ease: "expo.out" });
 
-    return () => mm.revert();
-  }, []);
+        // The page's one big moment: the title's letters rise out of a mask, line by line.
+        // SplitText labels the h1 with its full text, so screen readers still read it whole.
+        gsap.set(title, { autoAlpha: 1 });
+        SplitText.create(title, {
+          type: "lines,chars",
+          mask: "lines",
+          linesClass: "split-line",
+          autoSplit: true,
+          onSplit: (self) =>
+            gsap.from(self.chars, {
+              yPercent: 115,
+              duration: 1.2,
+              ease: "expo.out",
+              stagger: 0.022,
+              delay: 0.2,
+            }),
+        });
+
+        gsap.fromTo(
+          [subtitleRef.current, buttonsRef.current, stackRef.current],
+          { autoAlpha: 0, y: 16 },
+          { autoAlpha: 1, y: 0, duration: 0.9, ease: "expo.out", stagger: 0.1, delay: 0.85 },
+        );
+      });
+      return () => mm.revert();
+    },
+    { scope: sectionRef },
+  );
 
   return (
     <section
+      ref={sectionRef}
       id="hero"
       className="flex flex-col lg:flex-row items-center justify-between min-h-screen gap-8 lg:gap-16 pt-24 pb-12 lg:py-16 px-6 md:px-10 lg:px-16"
     >
@@ -54,13 +79,14 @@ export default function HeroSection() {
         </span>
         <h1
           ref={titleRef}
+          data-reveal
           className="flex flex-col font-sans font-black text-6xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tight"
         >
-          <span data-reveal className="block font-heading font-semibold text-2xl sm:text-3xl md:text-4xl tracking-normal text-text-primary mb-3 md:mb-4">
+          <span className="block font-heading font-semibold text-2xl sm:text-3xl md:text-4xl tracking-normal text-text-primary mb-3 md:mb-4">
             Romy Valdez
           </span>{" "}
-          <span data-reveal className="block">Full-Stack</span>{" "}
-          <span data-reveal className="block italic text-accent font-extrabold">Developer.</span>
+          <span className="block">Full-Stack</span>{" "}
+          <span className="block italic text-accent font-extrabold">Developer.</span>
         </h1>
         <p
           ref={subtitleRef}
@@ -77,6 +103,7 @@ export default function HeroSection() {
         <span ref={buttonsRef}
           data-reveal className="flex flex-col sm:flex-row gap-3 sm:gap-4">
           <Link
+            ref={primaryRef}
             href="#projects"
             className="flex justify-center gap-2 bg-accent text-base text-text-primary px-8 py-4 rounded-none hover:bg-accent-hover transition-colors"
           >
